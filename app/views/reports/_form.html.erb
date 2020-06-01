@@ -1,0 +1,35 @@
+<%= form_with(model: report, local: true) do |form| %>
+  <% if report.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(report.errors.count, "error") %> prohibited this report from being saved:</h2>
+
+      <ul>
+        <% report.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  
+  
+  <div class="form-group">
+  <label for="project_id">Select Project:</label>
+    <select class="form-control" name="report[project_id]" id="report_project_id" >
+      <option selected="true" value=""> Select All </option>
+      <% Project.all.each do |project| %>
+        <option value="<%= project.id %>"> <%= project.name %> </option>
+      <% end %>
+  </div>
+  <br>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="content">Report Content:</label>
+    <textarea class="form-control" rows ="5" id="content" placeholder="Report Content"></textarea>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+
+  
+<% end %>

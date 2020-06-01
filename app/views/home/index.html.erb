@@ -1,0 +1,15 @@
+<h1><%= current_user.email %> </h1>
+
+<div class="h-75 d-inline-block" style="height: 300px; width: 800px; background-color: rgba(0,255,255,.1)">
+PROJECTS : <br>
+    <table>
+        <% @project.each do |project| %>
+         <tr>
+            <ul class="list-group">
+                <li class="list-group-item"><%= @project.name %></li>
+            </ul>
+
+         </tr>
+        <% end %>
+    </table>
+</div>

@@ -1,0 +1,25 @@
+{
+  "name": "repApp",
+  "private": true,
+  "dependencies": {
+    "@fullcalendar/core": "^4.4.2",
+    "@fullcalendar/daygrid": "^4.4.2",
+    "@fullcalendar/list": "^4.4.2",
+    "@fullcalendar/timegrid": "^4.4.2",
+    "@rails/actioncable": "^6.0.0",
+    "@rails/activestorage": "^6.0.0",
+    "@rails/ujs": "^6.0.0",
+    "@rails/webpacker": "4.2.2",
+    "expose-loader": "^0.7.5",
+    "jquery": "^3.5.0",
+    "popper.js": "^1.16.1",
+    "turbolinks": "^5.2.0"
+  },
+  "version": "0.1.0",
+  "devDependencies": {
+    "webpack-dev-server": "^3.11.0"
+  },
+  "main": "index.js",
+  "author": "carlcabiles9 <cabiles.carl@yahoo.com>",
+  "license": "MIT"
+}
