@@ -1,3 +1,10 @@
+<%= form_tag projects_path, :method => :get do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+<% end %>
+
 <p id="notice"><%= notice %></p>
 
 <h1 class="navbar navbar-default">Projects</h1><br>
@@ -15,7 +22,7 @@
     <% @projects.each do |project| %>
       <tr>
         <td><%= project.name %></td>
-        <td><%= @user.find(project.participant_ids) %></td>
+        <td><%= User.find(project.participant_ids) %></td>
       
         <td><%= link_to 'Show', project %> | </td>
         <td><%= link_to 'Edit', edit_project_path(project) %> | </td>

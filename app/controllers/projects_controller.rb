@@ -5,7 +5,14 @@ class ProjectsController < ApplicationController
   # GET /projects.json
   def index
     @projects = Project.all
-    @user = User.all
+    @users = User.all
+
+    @search = Project.search do
+      fulltext params[:search]
+      
+    end
+    @projects = @search.results
+  
   end
 
   # GET /projects/1

@@ -4,10 +4,8 @@ class Project < ApplicationRecord
   has_many :participants, through: :project_users, source: :user
 
   searchable do
-    text :name
-    # integer :user_ids, :multiple=> true
-    # sir ang boost po ng searchable para saan?
-    # para mapabilis yung pag search para sa attribute. Optional lang yan bro. Ginagamit lang yan kapag important yung atttribute for searching.
+    text :name, :boost => 5
+   
     time :created_at
   end    
 end

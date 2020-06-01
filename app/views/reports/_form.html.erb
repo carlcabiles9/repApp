@@ -18,14 +18,15 @@
     <select class="form-control" name="report[project_id]" id="report_project_id" >
       <option selected="true" value=""> Select All </option>
       <% Project.all.each do |project| %>
-        <option value="<%= project.id %>"> <%= project.name %> </option>
+        <option value = <%= project.id %>> <%= project.name %> </option>
       <% end %>
   </div>
   <br>
-  <div class="form-group">
-    <label class="control-label col-sm-2" for="content">Report Content:</label>
-    <textarea class="form-control" rows ="5" id="content" placeholder="Report Content"></textarea>
-  </div>
+
+  <div class="field">
+  <%= form.label :content%>
+  <%= form.text_area :content %>
+</div>
 
   <div class="actions">
     <%= form.submit %>
