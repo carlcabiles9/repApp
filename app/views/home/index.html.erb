@@ -1,15 +1,8 @@
 <h1><%= current_user.name %> </h1>
+<table class="table table-striped">
+    <% current_user.projects.each do |project| %>
+        <tr>
+        <td><%= project.name %></td>
+    <% end %>        
+</table>
 
-<div class="h-75 d-inline-block" style="height: 300px; width: 800px; background-color: rgba(0,255,255,.1)">
-PROJECTS : <br>
-    <table>
-        <% @project.each do |project| %>
-         <tr>
-            <ul class="list-group">
-                <li class="list-group-item"><%= project.name %></li>
-            </ul>
-
-         </tr>
-        <% end %>
-    </table>
-</div>

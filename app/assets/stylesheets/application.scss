@@ -1,4 +1,9 @@
+/*
+*= require bootstrap
 
- @import "bootstrap";
- @import 'calendar';
+*= require_tree .
+
+*= require_self
+*= require font-awesome
+*/
  

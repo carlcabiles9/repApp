@@ -1,20 +1,6 @@
-//= require jquery3
+//= require jquery
+//= require jquery_ujs
 //= require popper
 //= require bootstrap-sprockets
-//= require moment 
-//= require fullcalendar
-//= require fullcalendar/locale-all
-import { Calendar } from '@fullcalendar/core';
-import dayGridPlugin from '@fullcalendar/daygrid';
-$(document).ready(function() {
-  $("#calendar").fullCalendar();
-});
-document.addEventListener('DOMContentLoaded', function() {
-  var calendarEl = document.getElementById('calendar');
-
-  var calendar = new Calendar(calendarEl, {
-    plugins: [ dayGridPlugin ]
-  });
-
-  calendar.render();
-});
+require("@rails/ujs").start()
+require("turbolinks").start()
