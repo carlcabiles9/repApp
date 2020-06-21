@@ -1,0 +1,7 @@
+<% @weeks.each do |week| %>
+    <ul>
+    <li><%= week.project.name %></li>
+    <li><%= week.content%></li>   
+    <li><%= week.created_at %></li>
+    </ul>
+<% end %>

@@ -1,0 +1,7 @@
+<% @days.each do |day| %>
+    <ul>
+    <li><%= day.project.name %></li>
+    <li><%= day.content%></li>   
+    <li><%= day.created_at %></li>
+    </ul>
+<% end %>

@@ -1,0 +1,12 @@
+<%= @time %> TO <%= @end %>  
+    <% @months.each do |month| %>
+        <ul>
+        <li><%= month.project.name %></li>
+        <li><%= month.content%></li>   
+        <li><%= month.created_at %></li>
+        </ul>
+    <% end %>
+
+
+
+

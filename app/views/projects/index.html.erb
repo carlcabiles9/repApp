@@ -4,9 +4,6 @@
     <%= submit_tag "Search", :name => nil %>
   </p>
 <% end %>
-
-<p id="notice"><%= notice %></p>
-
 <h1 class="navbar navbar-default">Projects</h1><br>
 <table class="table table-striped">
   <thead>
@@ -22,11 +19,11 @@
     <% @projects.each do |project| %>
       <tr>
         <td><%= project.name %></td>
-        <td><%= User.find(project.participant_ids) %></td>
+        <td><% User.find(project.participant_ids).each do |p| %>
+          <li><%= p.name %></li>
+         <% end %></td>
       
-        <td><%= link_to 'Show', project %> | </td>
-        <td><%= link_to 'Edit', edit_project_path(project) %> | </td>
-        <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Delete Project', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

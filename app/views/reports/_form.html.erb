@@ -11,26 +11,32 @@
     </div>
   <% end %>
   
-  
-  
-  <div class="form-group">
-  <label for="project_id">Select Project:</label>
+<div class="d-flex justify-content-center">
+  <div class = "container">        
+  <div class="form-group col-6 col-md-4">
+    <label for="project_id">Select Project:</label>
     <select class="form-control" name="report[project_id]" id="report_project_id" >
       <option selected="true" value=""> Select All </option>
-      <% Project.all.each do |project| %>
+      <% current_user.projects.each do |project| %>
         <option value = <%= project.id %>> <%= project.name %> </option>
       <% end %>
+    </select>
   </div>
-  <br>
+  </div>
 
+  <div class = "container">
+  <div class="col-xs-6 col-md-4">.
   <div class="field">
   <%= form.label :content%>
-  <%= form.text_area :content %>
-</div>
+  <%= form.text_area :content, :rows => 10, style: 'width:100%;' %>
+  </div>
+  </div>
+  </div>
+ <br>
 
   <div class="actions">
     <%= form.submit %>
   </div>
-
+</div>
   
 <% end %>
