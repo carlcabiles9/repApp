@@ -1,12 +1,25 @@
 Rails.application.routes.draw do
   
   get 'projects/:id/destroy', to: 'projects#destroy_student', as: :deleteproject
-  resources :reports
-  # devise_for :users 
-  # root :to => 'projects#index'
-  root to: "home#index"
+  resources :reports do
+  collection do
+    get :monthly
+    get :weekly
+    get :daily
+    
+  end
+  end
+  resources :home do
+    collection do
+      get :monthly
+      get :weekly
+      get :daily
+      
+    end
+  end
   resources :projects
   resources :recipients
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  devise_for :users
+  devise_for :users 
+    resources :users
+   
 end
