@@ -5,9 +5,24 @@ class ReportsController < ApplicationController
   # GET /reports
   # GET /reports.json
   def index
-    @report = Report.all
-    @user = User.all
-    @project = Project.all
+    @reports = Report.all
+    @users = User.all
+    @projects = Project.all
+
+  end
+  def monthly
+    @time = Date.today.beginning_of_month
+    @end = Date.today.end_of_month
+    @months = Report.where(user_id: current_user.id, created_at: Date.today.beginning_of_month..Date.today.end_of_month)
+    
+  end
+  def weekly
+    
+    @weeks = Report.where(user_id: current_user.id, created_at: Date.today.beginning_of_week..Date.today.end_of_week)
+  end
+  def daily
+    
+    @days = Report.where(user_id: current_user.id, created_at: Date.today.beginning_of_day..Date.today.end_of_day)
   end
   def list
     @reports = Report.find :all
@@ -34,13 +49,14 @@ class ReportsController < ApplicationController
   # GET /reports/1
   # GET /reports/1.json
   def show
-  
+    
     @reports = Report.find(params[:id])
     respond_to do |format|
     format.html
     format.pdf do
+      
       pdf = ReportPdf.new(@report)
-      send_data pdf.render, filename: "report_#{@report.name}.pdf",
+      send_data pdf.render, filename: "report_#{@report.id }.pdf",
                             type: "application/pdf",
                             disposition: "inline"
       end

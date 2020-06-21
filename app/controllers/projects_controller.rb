@@ -9,7 +9,6 @@ class ProjectsController < ApplicationController
 
     @search = Project.search do
       fulltext params[:search]
-      
     end
     @projects = @search.results
   
@@ -31,14 +30,6 @@ class ProjectsController < ApplicationController
   end
   # GET /resources/search?q={query}
   # GET /resources/search.json?q={query}
-  
-  def search
-     Post.search do
-      fulltext 'test' do
-        
-      end
-    end
-  end
   
 
   # POST /projects

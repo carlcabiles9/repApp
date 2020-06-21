@@ -1,10 +1,12 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  
+  before_action :authorize_admin!, except: [:index, :show]
 
   # GET /users
   # GET /users.json
   def index
     @users = User.all
+    @project = Project.all
   end
 
   # GET /users/1
@@ -24,10 +26,6 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(user_params)
-    @user.password = "Sample1234"
-    
-
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
@@ -64,10 +62,7 @@ class UsersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
+   
 
     # Only allow a list of trusted parameters through.
     def user_params
