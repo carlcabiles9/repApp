@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy, :destroy_project, :search]
-
+  before_action :authorize_admin
   # GET /projects
   # GET /projects.json
   def index
@@ -35,8 +35,6 @@ class ProjectsController < ApplicationController
   # POST /projects
   # POST /projects.json
   def create
-    @users = User.all
-    
     @project = Project.new(project_params)
     # # dapat ma implement to sa ability for now dito muna
     @project.user_id = current_user.id

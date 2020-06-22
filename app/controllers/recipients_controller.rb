@@ -26,7 +26,6 @@ class RecipientsController < ApplicationController
   # POST /recipients.json
   def create
     @recipient = Recipient.new(recipient_params)
-
     respond_to do |format|
       if @recipient.save
         format.html { redirect_to @recipient, notice: 'Recipient was successfully created.' }

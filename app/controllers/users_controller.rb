@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   
-  before_action :authorize_admin!, except: [:index, :show]
+  before_action :authorize_admin, except: [:index, :show]
 
   # GET /users
   # GET /users.json
@@ -26,6 +26,8 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
+    @user = User.new(user_params)
+
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
@@ -66,6 +68,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:email, :name, :avatar, project_ids: [])
+      params.require(:user).permit(:email, :name, :password, :avatar, project_ids: [])
     end
 end

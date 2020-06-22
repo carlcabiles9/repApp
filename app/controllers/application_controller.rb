@@ -12,7 +12,12 @@ class ApplicationController < ActionController::Base
 
                devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:email, :name, :password, :current_password)}
           end
-
+     def authorize_admin
+               if !current_user.has_role? (:admin)
+                 redirect_to(home_index_path, :notice => "Not Allowed") and return
+               end
+               flash[:notice]
+             end
      def run
           if Date.today.monday?
            User.find_each do |user| 

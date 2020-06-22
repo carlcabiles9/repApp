@@ -14,10 +14,8 @@ class ReportsController < ApplicationController
     @time = Date.today.beginning_of_month
     @end = Date.today.end_of_month
     @months = Report.where(user_id: current_user.id, created_at: Date.today.beginning_of_month..Date.today.end_of_month)
-    
   end
-  def weekly
-    
+  def weekly 
     @weeks = Report.where(user_id: current_user.id, created_at: Date.today.beginning_of_week..Date.today.end_of_week)
   end
   def daily
@@ -124,6 +122,6 @@ class ReportsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def report_params
-      params.require(:report).permit(:user_id, :project_id, :content)
+      params.require(:report).permit(:user_id, :project_id, :content, :daily_report, :monthly_report, :weekly_report)
     end
 end
