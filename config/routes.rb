@@ -2,10 +2,13 @@ Rails.application.routes.draw do
   
   get 'projects/:id/destroy', to: 'projects#destroy_student', as: :deleteproject
   resources :reports do
-  collection do
+    collection do
     get :monthly
     get :weekly
     get :daily
+    get :show_monthly
+    get :show_weekly
+    get :show_daily
     
   end
   end
@@ -14,6 +17,7 @@ Rails.application.routes.draw do
       get :monthly
       get :weekly
       get :daily
+      
       
     end
   end
