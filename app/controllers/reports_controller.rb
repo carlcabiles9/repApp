@@ -1,5 +1,5 @@
 class ReportsController < ApplicationController
-  before_action :set_report, only: [:show, :edit, :update, :destroy]
+  before_action :set_report, only: [:show, :edit, :update, :destroy,]
   
 
   # GET /reports
@@ -11,43 +11,48 @@ class ReportsController < ApplicationController
 
   end
   def monthly
-    @time = Date.today.beginning_of_month
-    @end = Date.today.end_of_month
-    @months = Report.where(user_id: current_user.id, created_at: Date.today.beginning_of_month..Date.today.end_of_month)
   end
   def weekly 
-    @weeks = Report.where(user_id: current_user.id, created_at: Date.today.beginning_of_week..Date.today.end_of_week)
-  end
+ end
   def daily
-    
-    @days = Report.where(user_id: current_user.id, created_at: Date.today.beginning_of_day..Date.today.end_of_day)
-  end
+ end
   def list
     @reports = Report.find :all
   end
 
   def send_report
-    params[:to].each do |receipient|
-      mail_opts = { to: User.find_by(email: receipient).email, subject: params[:subject] }
-      reports = current_user.reports.where("created_at > ?", Date.today.beginning_of_day)
-      UserMailer.email_report(current_user, reports, mail_opts)
+      User.find(current_user.id).recipients.each do |recipient|
+      mail_opts = { to: recipient.email }
+      reports = current_user.reports.where(created_at: Date.today.beginning_of_week..Date.today.end_of_week)
+      UserMailer.email_report(current_user, reports, mail_opts).deliver_now
     end
   end
-  # def daily
-  # end
+
+  def show_daily
+    @time = Date.today.to_s(:short)
+    
+    @days = Report.where(user_id: current_user.id, created_at: Date.today.beginning_of_day..Date.today.end_of_day)
   
-  # def weekly
-  # end
+  end
   
-  # def monthly
-  #   @report.all.group_by{ |u| u.created_at.beginning_of_month }
-  # end
+  def show_weekly
+    @time = Date.today.beginning_of_week.to_s(:short)
+    @end = Date.today.end_of_week.to_s(:short)
+    @weeks = Report.where(user_id: current_user.id, created_at: Date.today.beginning_of_week..Date.today.end_of_week)
+  
+  end
+  
+  def show_monthly
+    @time = Date.today.beginning_of_month.to_s(:short)
+    @end = Date.today.end_of_month.to_s(:short)
+    @months = Report.where(user_id: current_user.id, created_at: Date.today.beginning_of_month..Date.today.end_of_month)
+  
+  end
 
 
   # GET /reports/1
   # GET /reports/1.json
-  def show
-    
+  def show  
     @reports = Report.find(params[:id])
     respond_to do |format|
     format.html
@@ -74,13 +79,14 @@ class ReportsController < ApplicationController
   # POST /reports
   # POST /reports.json
   def create
-    @users = User.all
+    @users = current_user
     @project = Project.all
     @report = Report.new(report_params)
     @report.user_id = current_user.id
-   
+    @recipient = Recipient.all
     respond_to do |format|
       if @report.save
+        
         format.html { redirect_to @report, notice: 'Report was successfully created.' }
         format.json { render :show, status: :created, location: @report }
       else
@@ -88,6 +94,7 @@ class ReportsController < ApplicationController
         format.json { render json: @report.errors, status: :unprocessable_entity }
       end
     end
+   
   end
 
   # PATCH/PUT /reports/1
@@ -122,6 +129,6 @@ class ReportsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def report_params
-      params.require(:report).permit(:user_id, :project_id, :content, :daily_report, :monthly_report, :weekly_report)
+      params.require(:report).permit(:user_id, :content, :daily_report, :monthly_report, :weekly_report, :type)
     end
 end

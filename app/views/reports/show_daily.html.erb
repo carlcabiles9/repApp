@@ -1,0 +1,11 @@
+REPORT FOR DAY:
+<%= @time %>  
+
+    <% @days.each do |daily| %>
+        <div class="container">
+        <ul>
+        <li><%= daily.daily_report %></li> 
+        <%= I18n.l(daily.created_at, format: "%a %m.%d.%y").to_s %>
+        </ul>
+        </div>
+    <% end %>

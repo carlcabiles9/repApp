@@ -1,7 +1,13 @@
-<% @days.each do |day| %>
-    <ul>
-    <li><%= day.project.name %></li>
-    <li><%= day.content%></li>   
-    <li><%= day.created_at %></li>
-    </ul>
+<%= form_with scope: :report, url: reports_path, local: true do |form| %>
+    Report For: 
+    <div class="d-flex justify-content-center">
+    <div class = "container">        
+    
+    <p>
+    <%= form.label :daily_report %><br>
+    <%= form.text_area :daily_report, :rows => 10, style: 'width:100%;' %>
+    </p>
+    <p>
+    <%= form.submit %>
+    </p>
 <% end %>

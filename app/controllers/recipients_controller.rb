@@ -16,6 +16,7 @@ class RecipientsController < ApplicationController
   # GET /recipients/new
   def new
     @recipient = Recipient.new
+
   end
 
   # GET /recipients/1/edit
@@ -25,7 +26,9 @@ class RecipientsController < ApplicationController
   # POST /recipients
   # POST /recipients.json
   def create
+    @users = User.all
     @recipient = Recipient.new(recipient_params)
+    @recipient.user_id = current_user.id
     respond_to do |format|
       if @recipient.save
         format.html { redirect_to @recipient, notice: 'Recipient was successfully created.' }

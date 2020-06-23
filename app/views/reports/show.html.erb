@@ -1,20 +1,14 @@
 <p id="notice"><%= notice %></p>
 
-<p><%= link_to "Printable Receipt (PDF)", report_path(@report, format: "pdf") %></p>
+<p><%= link_to "Printable Report (PDF)", report_path(@report, format: "pdf") %></p>
 
 <p>
   <strong>User:</strong>
   <%= @report.user_id %>
 </p>
-
-<p>
-  <strong>Project:</strong>
-  <%= @report.project_id %>
-</p>
-
 <p>
   <strong>Content:</strong>
-  <%= @report.content %>
+  <%= @report.daily_report %>
 </p>
 
 

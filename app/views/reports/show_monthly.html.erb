@@ -1,0 +1,10 @@
+<%= @time %> TO <%= @end %>  
+
+    <% @months.each do |month| %>
+        <div class="container">
+        <ul>
+        <li><%= month.monthly_report %></li> 
+        <%= I18n.l(month.created_at, format: "%a %m.%d.%y").to_s %>
+        </ul>
+        </div>
+    <% end %>

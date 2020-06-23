@@ -1,5 +1,8 @@
-<h1>New Report</h1>
+<h1><center><strong>New Report</strong></center></h1>
+<h4>
 
-<%= render 'form', report: @report %>
+<li><%= link_to 'Create Daily Report', daily_reports_path %><br>
+<li><%= link_to 'Create Weekly Report', weekly_reports_path %><br>
+<li><%= link_to 'Create Monthly Report', monthly_reports_path %><br>
 
 <%= link_to 'Back', reports_path %>

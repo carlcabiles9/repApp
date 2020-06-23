@@ -1,0 +1,10 @@
+<%= @time %> TO <%= @end %>  
+
+    <% @weeks.each do |week| %>
+        <div class="container">
+        <ul>
+        <li><%= week.weekly_report %></li> 
+        <%= I18n.l(week.created_at, format: "%a %m.%d.%y").to_s %>
+        </ul>
+        </div>
+    <% end %>
