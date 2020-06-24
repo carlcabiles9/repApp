@@ -3,8 +3,8 @@
 <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: "form-signin"}) do |f| %>
   <h2 class="form-signin-heading">Please Sign in</h2>
     
-    <%= f.label :email, 'EMAIL', class: 'sr-only' %>
-    <%= f.email_field :email, autofocus: true, autocomplete: "off", class: 'form-control', placeholder: 'Email' %>
+    <%= f.label :name, 'NAME', class: 'sr-only' %>
+    <%= f.text_field :name, autofocus: true, autocomplete: "off", class: 'form-control', placeholder: 'Text' %>
     <%= f.label :password, 'Password', class: 'sr-only' %>
     <%= f.password_field :password, autocomplete: "off", class: 'form-control', placeholder: 'Password' %>
   

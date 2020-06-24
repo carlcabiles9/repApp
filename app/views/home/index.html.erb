@@ -1,8 +1,84 @@
+<% if can? :manage, Project %>
+    I'M an Admin<br>
+<br>
+Projects for:
 <h1><%= current_user.name %> </h1>
-<table class="table table-striped">
-    <% current_user.projects.each do |project| %>
-        <tr>
-        <td><%= project.name %></td>
-    <% end %>        
-</table>
+<h3>My Projects:</h3>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <table class="table table-striped">
+          <% current_user.projects.each do |project| %>
+            <tr>
+            <td><%= project.name %></td>
+          <% end %>  
+      </table>
+          <%= link_to 'Projects', new_project_path, class: 'btn btn-lg btn-primary' %>
+          <%= link_to 'Users', new_user_path, class: 'btn btn-lg btn-primary' %>
+    
+    </div>
+    <div class="col">
+      <%= render template: "projects/index", locals: { projects: @projects } %>
+    </div>
+    <div class="col">
+      <%= render template: "reports/new", locals: { reports: @reports } %>
+    </div>
+  </div>
+  <div class = "row">
+    <div class="col">
+    </div>
+    <div class="col">
+      <%= link_to 'Send Daily Report', daily_home_index_url, class: 'btn btn-lg btn-primary' %>
+    </div>
+    <div class="col">
+    </div>
+  </div>
+  
+</div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<% else %>
+  I'm not an Admin
+  
+    <h1><%= current_user.name %> </h1>
+    <h3>My Projects:</h3>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <table class="table table-striped">
+              <% current_user.projects.each do |project| %>
+                <tr>
+                <td><%= project.name %></td>
+              <% end %>  
+            </table>
+        </div>
+        <div class="col">
+           <%= render template: "reports/new", locals: { reports: @reports } %>
+         </div>
+      </div><br><br>   
+      <div class = "row">
+        <div class="col">
+         </div>
+          <div class="col">
+            <%= link_to 'Send Daily Report', daily_home_index_url, class: 'btn btn-lg btn-primary' %>
+          </div>
+         <div class="col">
+        </div>
+      </div>            
+    </div>
+      
+<% end %>

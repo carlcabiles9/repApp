@@ -19,7 +19,6 @@
   <div class="form-group">
   <label for="participant_ids[]">Select users:</label>
     <select class="form-control" name="project[participant_ids][]" id="project_participant_ids[]" multiple="true" >
-      <option selected="true" value=""> Select All </option>
       <% User.all.each do |participant| %>
         <option value="<%= participant.id %>"> <%= participant.email %> </option>
       <% end %>

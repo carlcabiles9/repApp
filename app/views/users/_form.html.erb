@@ -10,18 +10,27 @@
       </ul>
     </div>
   <% end %>
-
+  <div class="field">
+  <%= form.label :email %>
+  <%= form.text_field :email %>
+</div>
   <div class="field">
     <%= form.label :name %>
     <%= form.text_field :name %>
   </div>
-
+  <div class="field">
+    <%= form.label :password %>
+    <%= form.text_field :password %>
+  </div>
   <div class="field">
   <select class="custom-select custom-select-lg mb-3" name="user[project_ids][]" id="user_project_ids[]" multiple="" >
-    <option selected="true" value=""> Select All </option>
+  <option value=1 selected>Others</option>
     <% Project.all.each do |project| %>
+      
       <option value="<%= project.id %>"> <%= project.name %> </option>
     <% end %>
+
+
 </div>
 
   <div class="actions">
