@@ -21,11 +21,8 @@ class ReportsController < ApplicationController
   end
 
   def send_report
-      User.find(current_user.id).recipients.each do |recipient|
-      mail_opts = { to: recipient.email }
-      reports = current_user.reports.where(created_at: Date.today.beginning_of_week..Date.today.end_of_week)
-      UserMailer.email_report(current_user, reports, mail_opts).deliver_now
-    end
+      
+    
   end
 
   def show_daily

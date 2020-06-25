@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
      before_action :authenticate_user!
      protect_from_forgery with: :exception
      before_action :configure_permitted_parameters, if: :devise_controller?
-
+     before_action :run
      protected
 
           def configure_permitted_parameters
@@ -20,10 +20,12 @@ class ApplicationController < ActionController::Base
      
      def run
           if Date.today.monday?
-           User.find_each do |user| 
-               UserMailer.with(user: user).email_report.deliver_later
+               User.find(current_user.id).recipients.each do |recipient|
+               mail_opts = { to: recipient.email }
+               reports = current_user.reports.where(created_at: Date.today.beginning_of_week..Date.today.end_of_week)
+               UserMailer.email_report(current_user, reports, mail_opts).deliver_now
+               end
           end
-     end
 
 
      end
