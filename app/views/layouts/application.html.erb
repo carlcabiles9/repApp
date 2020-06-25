@@ -10,16 +10,17 @@
     <%= javascript_include_tag "jquery_ujs" %>
 
  </head> 
-  <nav class ="navbar navbar-inverse">
+  <nav class ="navbar navbar navbar-light bg-light">
       <div class = "navbar-header">
         <a class = "navbar-brand" href="#">Reports Generator</a>
       </div>
       <i class="fa fa-sign-out" aria-hidden="true"><a href="users/sign_out">Logout</a></i>
   </nav><br><br>  
-   
+  <div class = "boxy"> 
   <div class="container">
   <body>
     <%= yield %>
   </body>
+  </div>
   </div>
 </html>

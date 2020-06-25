@@ -20,6 +20,8 @@
       <td><%= user.name %></td>
         <td><% Project.find(user.project_ids).each do |p| %>
             <li><%= p.name %></li>
+            <td><%= link_to 'Edit', edit_user_path(user) %></td>
+
         <% end %></td>
        
       </tr>

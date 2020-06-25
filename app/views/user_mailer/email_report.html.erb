@@ -4,15 +4,16 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-        From User:
-        <%= @user.name %>
-        CD Technologies Asia INC.
-        Good Day!,
-        <%= @try >
-        This is my weekly report for last week.
-
-        Report:
-         
+      <p>CD Technologies Asia INC.</p>
+      <p>Good Day!,</p>
+      <p>Report Content:</p>
+      <p>This is my work report for this week.</p>
+      <% @report.each do |report| %>
+          <p><%= report.weekly_report %></p>
+      <% end %>
+      
+    <p>From User:</p>
+      <p><%= @user.name %></p>
     <p>Have a Great Day!</p>
   </body>
 </html>
