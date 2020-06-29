@@ -1,0 +1,21 @@
+.boxy
+.container
+    .row
+        .col
+            h7 REPORT FOR DAY:
+            = @time   
+                - @days.each do |daily| 
+                    .container
+                        ul
+                        textarea = daily.daily_report 
+                        br
+                        = I18n.l(daily.created_at, format: "%a %m.%d.%y").to_s
+                        
+        .col
+            = render template: "recipients/index", locals: { recipients: @recipients }
+        br
+        br
+    .row
+        = link_to 'Send Now', send_daily_home_index_path, method: :post 
+        br
+          

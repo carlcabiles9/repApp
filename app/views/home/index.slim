@@ -1,0 +1,35 @@
+- if can? :manage, Project
+  h1 = current_user.name
+  h7 I am an Admin
+  br
+  .container
+    .row
+      .col-4
+        h8 My Projects:
+        table.table.table-striped
+          - current_user.projects.each do |project|
+            tr
+              td = project.name
+            center 
+        = link_to 'Create Projects', new_project_path, class: 'btn btn-success'
+        = link_to 'Create Users', new_user_path, class: 'btn btn-success'
+      .col-4
+        = render template: "projects/index", locals: { projects: @projects }
+      .col-4
+        = render template: "reports/new", locals: { reports: @reports }
+    
+- else
+  h7 I am not an Admin   
+  h1 = current_user.name
+  h3 My Projects:
+  .container
+    .row
+      .col
+        table.table.table-striped
+          - current_user.projects.each do |project|
+            tr
+              td = project.name
+      .col
+        = render template: "reports/new", locals: { reports: @reports } 
+            
+   

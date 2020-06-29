@@ -1,0 +1,9 @@
+h4  REPORT FOR DAY:
+=@time
+
+- @days.each do |daily|
+    .container
+    ul
+        li = daily.daily_report 
+        = I18n.l(daily.created_at, format: "%a %m.%d.%y").to_s
+        

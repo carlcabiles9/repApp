@@ -1,0 +1,13 @@
+doctype html
+html
+  head
+    title 
+      RepApp
+    = csrf_meta_tags 
+    = csp_meta_tag 
+
+    = stylesheet_link_tag 'session', media: 'all', 'data-turbolinks-track': 'reload' 
+    = javascript_pack_tag 'session', 'data-turbolinks-track': 'reload' 
+  body
+  div class='container'
+    = yield

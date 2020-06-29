@@ -1,0 +1,9 @@
+h5 REPORT For a week from:
+=@time.to_s
+h7 TO
+=@end.to_s
+
+-@weeks.each do |weekly|
+    li = weekly.weekly_report 
+    = I18n.l(weekly.created_at, format: "%a %m.%d.%y").to_s
+        

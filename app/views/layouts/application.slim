@@ -1,0 +1,21 @@
+doctype html
+html
+  head
+    title RepApp
+    = csrf_meta_tags 
+    = csp_meta_tag 
+    meta charset="utf-8"
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' 
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' 
+    = javascript_include_tag "jquery_ujs" 
+
+  nav class ="navbar navbar navbar-light bg-light"
+      div class = "navbar-header"
+        a class = "navbar-brand" href="#" Reports Generator
+      i class="fa fa-sign-out" aria-hidden="true" 
+        a href="users/sign_out" Logout
+  div class = "boxy"
+    div class="container"
+      body
+        = yield 
+ 

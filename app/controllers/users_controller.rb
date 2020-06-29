@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
-  
-  before_action :authorize_admin, except: [:index, :show]
+  before_action :authorize_admin, except: %i[index show]
 
   # GET /users
   # GET /users.json
@@ -11,8 +12,7 @@ class UsersController < ApplicationController
 
   # GET /users/1
   # GET /users/1.json
-  def show
-  end
+  def show; end
 
   # GET /users/new
   def new
@@ -20,8 +20,7 @@ class UsersController < ApplicationController
   end
 
   # GET /users/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /users
   # POST /users.json
@@ -64,10 +63,9 @@ class UsersController < ApplicationController
   end
 
   private
-   
 
-    # Only allow a list of trusted parameters through.
-    def user_params
-      params.require(:user).permit(:email, :name, :password, :avatar, project_ids: [])
-    end
+  # Only allow a list of trusted parameters through.
+  def user_params
+    params.require(:user).permit(:email, :name, :password, :avatar, project_ids: [])
+  end
 end

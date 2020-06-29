@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
-  rolify strict: true, role_join_table_name: :user_roles, class_name: "Role"
+  rolify strict: true, role_join_table_name: :user_roles, class_name: 'Role'
   has_one_attached :avatar
   has_many :project_users, dependent: :destroy
   has_many :reports, dependent: :destroy
@@ -10,24 +12,23 @@ class User < ApplicationRecord
 
   before_create :remember_value
 
-def valid_password?(password)
+  def valid_password?(password)
     if password.blank?
-        true
+      true
     else
-        super
+      super
     end
-end
+  end
 
-def password_required?
+  def password_required?
     new_record? ? false : super
-end
+  end
 
-def remember_value
+  def remember_value
     self.remember_token ||= Devise.friendly_token
-end
+  end
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :trackable,
          :recoverable, :rememberable, :validatable
 end
-

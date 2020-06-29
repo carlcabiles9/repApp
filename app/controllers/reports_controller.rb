@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 class ReportsController < ApplicationController
-  before_action :set_report, only: [:show, :edit, :update, :destroy,]
-  
+  before_action :set_report, only: %i[show edit update destroy]
 
   # GET /reports
   # GET /reports.json
@@ -8,57 +9,49 @@ class ReportsController < ApplicationController
     @reports = Report.all
     @users = User.all
     @projects = Project.all
+  end
 
-  end
-  def monthly
-  end
-  def weekly 
- end
-  def daily
- end
+  def monthly; end
+
+  def weekly; end
+
+  def daily; end
+
   def list
     @reports = Report.find :all
   end
 
-  def send_report
-      
-    
-  end
+  def send_report; end
 
   def show_daily
     @time = Date.today.to_s(:short)
-    
+
     @days = Report.where(user_id: current_user.id, created_at: Date.today.beginning_of_day..Date.today.end_of_day)
-  
   end
-  
+
   def show_weekly
     @time = Date.today.beginning_of_week.to_s(:short)
     @end = Date.today.end_of_week.to_s(:short)
     @weeks = Report.where(user_id: current_user.id, created_at: Date.today.beginning_of_week..Date.today.end_of_week)
-  
   end
-  
+
   def show_monthly
     @time = Date.today.beginning_of_month.to_s(:short)
     @end = Date.today.end_of_month.to_s(:short)
     @months = Report.where(user_id: current_user.id, created_at: Date.today.beginning_of_month..Date.today.end_of_month)
-  
   end
-
 
   # GET /reports/1
   # GET /reports/1.json
-  def show  
+  def show
     @reports = Report.find(params[:id])
     respond_to do |format|
-    format.html
-    format.pdf do
-      
-      pdf = ReportPdf.new(@report)
-      send_data pdf.render, filename: "report_#{@report.id }.pdf",
-                            type: "application/pdf",
-                            disposition: "inline"
+      format.html
+      format.pdf do
+        pdf = ReportPdf.new(@report)
+        send_data pdf.render, filename: "report_#{@report.id}.pdf",
+                              type: 'application/pdf',
+                              disposition: 'inline'
       end
     end
   end
@@ -70,8 +63,7 @@ class ReportsController < ApplicationController
   end
 
   # GET /reports/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /reports
   # POST /reports.json
@@ -83,7 +75,7 @@ class ReportsController < ApplicationController
     @recipient = Recipient.all
     respond_to do |format|
       if @report.save
-        
+
         format.html { redirect_to @report, notice: 'Report was successfully created.' }
         format.json { render :show, status: :created, location: @report }
       else
@@ -91,7 +83,6 @@ class ReportsController < ApplicationController
         format.json { render json: @report.errors, status: :unprocessable_entity }
       end
     end
-   
   end
 
   # PATCH/PUT /reports/1
@@ -119,13 +110,14 @@ class ReportsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_report
-      @report = Report.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def report_params
-      params.require(:report).permit(:user_id, :content, :daily_report, :monthly_report, :weekly_report, :type)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_report
+    @report = Report.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def report_params
+    params.require(:report).permit(:user_id, :content, :daily_report, :monthly_report, :weekly_report, :type)
+  end
 end

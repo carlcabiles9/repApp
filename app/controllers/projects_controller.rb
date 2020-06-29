@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy, :destroy_project, :search]
+  before_action :set_project, only: %i[show edit update destroy destroy_project search]
   before_action :authorize_admin
   # GET /projects
   # GET /projects.json
@@ -11,7 +13,6 @@ class ProjectsController < ApplicationController
       fulltext params[:search]
     end
     @projects = @search.results
-  
   end
 
   # GET /projects/1
@@ -30,7 +31,6 @@ class ProjectsController < ApplicationController
   end
   # GET /resources/search?q={query}
   # GET /resources/search.json?q={query}
-  
 
   # POST /projects
   # POST /projects.json
@@ -83,16 +83,14 @@ class ProjectsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_project
-      @project = Project.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def project_params
-      params.require(:project).permit(:name, participant_ids: [])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_project
+    @project = Project.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def project_params
+    params.require(:project).permit(:name, participant_ids: [])
+  end
 end
-
-  
-

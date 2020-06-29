@@ -1,0 +1,9 @@
+h5 REPORT FOR Month:
+=@time.to_s
+h7 TO
+=@end.to_s
+
+-@months.each do |monthly|
+    li = monthly.monthly_report 
+    = I18n.l(monthly.created_at, format: "%a %m.%d.%y").to_s
+        
