@@ -1,0 +1,23 @@
+p#notice = notice
+
+h1 Users
+.container
+  .form-group.col-6.col-md-4
+    table.table.table-striped
+
+      thead
+        tr
+          th User ID
+          th Name
+          
+          th colspan="6"
+      tbody
+        - @users.order(:id).each do |user| 
+          tr
+          td = user.id
+          td = user.name
+            td -Project.find(user.project_ids).each do |p| 
+              li = p.name
+              td = link_to 'Edit', edit_user_path(user) 
+            
+  = link_to 'New User', new_user_path 
