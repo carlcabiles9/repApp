@@ -14,6 +14,8 @@ gem 'jquery-rails'
 gem 'paper_trail'
 gem 'prawn', '~>2.2.0'
 gem 'rolify'
+gem 'slim', '~> 4.1'
+gem 'slim_lint', '~> 0.20.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.2', '>= 6.0.2.2'
 # Use pg as the database for Active Record
