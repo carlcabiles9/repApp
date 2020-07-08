@@ -57,10 +57,35 @@ body {
     background-color: #c00;
     color: #fff; }
   
-  #error_explanation ul li {
+/*
+*= require bootstrap
+*= require_tree 
+*= require_self
+*= require font-awesome
+*/
+  
+    #error_explanation ul li {
     font-size: 12px;
     list-style: square; }
   
   label {
     display: block; }
+
+  .text{
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    padding: 5px 5px 5px 15px;
+    color: #656;
+
+
+  }
+  .title{
+    text-align: left;
+  }
+  .box{
+    font-size: 23px;
+    background-color:whitesmoke;
+  }
   

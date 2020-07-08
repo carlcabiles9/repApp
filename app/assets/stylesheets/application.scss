@@ -6,12 +6,32 @@
 */
  
 .boxy{
+    border: 2px solid black;
+    padding: 25px;
     background-color:lightblue;
     color: black;
     background: url( asset-path('background.jpg')) ;
-    height: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
+    height: 300%;
+    background-repeat: no-repeat; 
     background-size: cover;
    
   }
+.navbar {
+    position: relative;
+    min-height: 50px; 
+    font-size: 30px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    background-color: turquoise;
+  }
+
+.pad{
+  padding: 5px;
+  padding-top: 11em;
+  padding-left: 20rem;
+  padding-right: 5em;
+}
+
+.bg {
+  background-color: turquoise;
+}
