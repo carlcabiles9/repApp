@@ -1,9 +1,17 @@
-h4  REPORT FOR DAY:
-=@time
 
-- @days.each do |daily|
-    .container
-    ul
-        li = daily.daily_report 
-        = I18n.l(daily.created_at, format: "%a %m.%d.%y").to_s
-        
+.container
+    .row
+    h4  REPORT FOR DAY:
+    h5
+        =@time
+        .col-md-6
+            - @project.each do |p|
+                            br
+                            h5 =p.name
+                            -@days.where(project_id: p.id).each do |daily|
+                                li =daily.daily_report
+                                br
+        .col-md-6
+           asd paiosjdk
+
+                            

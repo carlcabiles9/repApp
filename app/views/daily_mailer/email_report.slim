@@ -1,0 +1,19 @@
+doctype html
+html
+  head
+    meta content='text/html; charset=UTF-8' http-equiv='Content-Type' 
+  
+  <body>
+        
+        p CD Technologies Asia INC.
+        p Good Day!,
+        p Report Content:
+        p This is my work report for this day.
+          -@reports.each do |report|
+            p 
+              = report.daily_report
+        
+      p From User:
+        p = @user.name 
+    p Have a Great Day!
+  

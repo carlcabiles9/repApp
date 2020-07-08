@@ -1,0 +1,18 @@
+p#notice = notice
+
+h4 = link_to "Printable Report (PDF)", report_path(@report, format: "pdf")
+br
+p
+  strong User:
+  = current_user.name
+
+p
+  strong Content:
+  = @report.daily_report
+
+
+
+= link_to 'Edit', edit_report_path(@report)   
+= link_to 'Back', reports_path 
+br
+= link_to 'Send Pdf', send_daily_reports_path(@report, format: "pdf")

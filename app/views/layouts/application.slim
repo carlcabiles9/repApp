@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title RepApp
+    title Report Generator
     = csrf_meta_tags 
     = csp_meta_tag 
     meta charset="utf-8"
@@ -9,11 +9,18 @@ html
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' 
     = javascript_include_tag "jquery_ujs" 
 
-  nav class ="navbar navbar navbar-light bg-light"
-      div class = "navbar-header"
-        a class = "navbar-brand" href="#" Reports Generator
-      i class="fa fa-sign-out" aria-hidden="true" 
-        a href="users/sign_out" Logout
+    .navbar.navbar-light.bg-light
+      .container-fluid style="padding-left:55px; height:45px;"
+        .navbar-header
+          i.fa.fa-file-text.fa-lg Reports Generator
+          br 
+          br
+          ul
+            a.fa.fa-book href="/reports" Reports | 
+            a.fa.fa-user-circle-o href="/users" Users |
+            a.fa.fa-pencil href="/projects" Projects
+           
+        a.fa.fa-sign-out href="/users/sign_out" Logout
   div class = "boxy"
     div class="container"
       body

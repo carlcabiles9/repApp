@@ -19,6 +19,11 @@ table.table.table-striped
         td 
           - User.find(project.participant_ids).each do |p| 
             li = p.name 
-         
+          - if project.status = "false"  
+            td Pending
+        
+        td = link_to 'Edit', edit_project_path(project)
         td = link_to 'Delete Project', project, method: :delete, data: { confirm: 'Are you sure?' } 
-     
+
+
+

@@ -7,23 +7,16 @@
       ul
         - report.errors.full_messages.each do |message|
           li = message
-.d-flex.justify-content-center
-  .container        
-  .form-group.col-6 col-md-4
-    label for="project_id" Select Project:
-    select.form-control name="report[project_id]" id="report_project_id" >
-      option selected="true" value="" Select All 
-        -current_user.projects.each do |project| 
-         option value = = project.id  = project.name 
-  .col-xs-6.col-md-4
-  .field
-  = form.label :content
-  = form.text_area :content, :rows => 10, style: 'width:100%;'
-  .col-xs-6.col-md-4
-  .field
-  .form.label :content
-  = form.date_field :startTime
-  .actions
-    = form.submit
-    
+  .container
+    .col-md-4
+      = form.select :project_id, options_from_collection_for_select(current_user.projects.all.sort_by(&:name), :id, :name, form.object.project_id), {}, include_blank: true, multiple: false, class: "collect-form"
+    .col-md-4        
+      p
+    .field
+      = form.label :daily_report
+      = form.text_area :daily_report, :rows => 10, style: 'width:80%;'
+    .actions
+      = form.submit
+
+          
 

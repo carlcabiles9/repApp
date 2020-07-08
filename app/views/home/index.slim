@@ -15,10 +15,15 @@
         = link_to 'Create Users', new_user_path, class: 'btn btn-success'
       .col-4
         = render template: "projects/index", locals: { projects: @projects }
+        = link_to 'Create Daily Report', daily_reports_path, class: 'fa fa-address-card fa-2x text'
+
       .col-4
-        = render template: "reports/new", locals: { reports: @reports }
+        = link_to 'Create Daily Report', daily_reports_path, class: 'fa fa-address-card fa-2x text'
+        = link_to 'Create Weekly Report', weekly_reports_path, class: 'fa fa-address-card fa-2x text'
+        = link_to 'Create Monthly Report', monthly_reports_path, class: 'fa fa-address-card fa-2x text'
     
 - else
+  i.fa.fa-address-card.fa-2x
   h7 I am not an Admin   
   h1 = current_user.name
   h3 My Projects:
@@ -30,6 +35,14 @@
             tr
               td = project.name
       .col
-        = render template: "reports/new", locals: { reports: @reports } 
+      .col
+        ul
+          = link_to 'Create Daily Report', daily_reports_path, class: 'fa fa-pencil fa-lg text'
+          = link_to 'Create Weekly Report', weekly_reports_path, class: 'fa fa-pencil fa-lg text'
+          = link_to 'Create Monthly Report', monthly_reports_path, class: 'fa fa-pencil fa-lg text'
+        
+
+
+
             
    

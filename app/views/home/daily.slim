@@ -1,21 +1,26 @@
 .boxy
-.container
-    .row
-        .col
-            h7 REPORT FOR DAY:
-            = @time   
+    .container
+        .row
+            .col
+                h7 REPORT FOR DAY:
+                = @time.to_s   
                 - @days.each do |daily| 
                     .container
-                        ul
-                        textarea = daily.daily_report 
-                        br
-                        = I18n.l(daily.created_at, format: "%a %m.%d.%y").to_s
-                        
-        .col
-            = render template: "recipients/index", locals: { recipients: @recipients }
+                        -if daily.daily_report.blank?
+                            h8 No Daily Report
+                            
+                        -else
+                            textarea = daily.daily_report 
+                            br
+                            = I18n.l(daily.created_at, format: "%a %m.%d.%y").to_s
+                            
+            .col
+                = render template: "recipients/index", locals: { recipients: @recipients }
+            br
+            br
+        .row
+            = link_to 'Send Now', send_daily_home_index_path, method: :post, class: 'btn btn-success'    
+            = link_to 'Send As PDF', send_daily_home_index_path, method: :post, class: 'btn btn-success'    
+
         br
-        br
-    .row
-        = link_to 'Send Now', send_daily_home_index_path, method: :post 
-        br
-          
+        = link_to 'Back', home_index_path
