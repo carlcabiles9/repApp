@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ProjectsController < ApplicationController
-  before_action :set_project, only: %i[show edit update destroy destroy_project search]
+  before_action :set_project, only: %i[show edit update destroy destroy_project search toggle_status]
   before_action :authorize_admin
   # GET /projects
   # GET /projects.json
@@ -36,9 +36,7 @@ class ProjectsController < ApplicationController
   # POST /projects.json
   def create
     @project = Project.new(project_params)
-    # # dapat ma implement to sa ability for now dito muna
     @project.user_id = current_user.id
-    # @project.user_id = User.id
     respond_to do |format|
       if @project.save
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
@@ -91,6 +89,6 @@ class ProjectsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def project_params
-    params.require(:project).permit(:name, participant_ids: [])
+    params.require(:project).permit(:name, :status, participant_ids: [])
   end
 end
