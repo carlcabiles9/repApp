@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ReportsController < ApplicationController
-  before_action :set_report, only: %i[show edit update destroy]
+  before_action :set_report, only: %i[show edit update destroy send_daily]
 
   # GET /reports
   # GET /reports.json
@@ -11,22 +11,32 @@ class ReportsController < ApplicationController
     @projects = Project.all
   end
 
-  def monthly; end
+  def monthly
+    @report = Report.new
+    @projects = Project.all
+    @report.user_id = current_user.id
+  end
 
-  def weekly; end
+  def weekly
+    @report = Report.new
+    @projects = Project.all
+    @report.user_id = current_user.id
+  end
 
-  def daily; end
+  def daily
+    @report = Report.new
+    @projects = Project.all
+    @report.user_id = current_user.id
+  end
 
   def list
     @reports = Report.find :all
   end
 
-  def send_report; end
-
   def show_daily
+    @project = Project.all
     @time = Date.today.to_s(:short)
-
-    @days = Report.where(user_id: current_user.id, created_at: Date.today.beginning_of_day..Date.today.end_of_day)
+    @days = Report.where(created_at: Date.today.beginning_of_day..Date.today.end_of_day)
   end
 
   def show_weekly
@@ -36,8 +46,8 @@ class ReportsController < ApplicationController
   end
 
   def show_monthly
-    @time = Date.today.beginning_of_month.to_s(:short)
-    @end = Date.today.end_of_month.to_s(:short)
+    @time = Date.today.beginning_of_month.to_s
+    @end = Date.today.end_of_month.to_s
     @months = Report.where(user_id: current_user.id, created_at: Date.today.beginning_of_month..Date.today.end_of_month)
   end
 
@@ -56,10 +66,28 @@ class ReportsController < ApplicationController
     end
   end
 
+  # def send_pdf
+  #   @user = current_user
+  #   @reports = Report.find(params[:id])
+  #   pdf = ReportPdf.new(@report)
+  #   send_data pdf.render, filename: "report_#{@report.id}.pdf"
+  #                         type: 'application/pdf',
+  #                         disposition: 'inline'
+
+  # end
+  def send_daily
+    @report = Report.find(params[:id])
+    User.find(current_user.id).recipients.each do |recipient|
+      mail_opts = { to: recipient.email }
+      reports = ReportPdf.new(@report)
+      UserMailer.send_pdf(current_user, reports, mail_opts).deliver_now
+    end
+  end
+
   # GET /reports/new
   def new
     @report = Report.new
-    @project = Project.all
+    @projects = Project.all
   end
 
   # GET /reports/1/edit
@@ -68,14 +96,11 @@ class ReportsController < ApplicationController
   # POST /reports
   # POST /reports.json
   def create
-    @users = current_user
-    @project = Project.all
     @report = Report.new(report_params)
     @report.user_id = current_user.id
-    @recipient = Recipient.all
+
     respond_to do |format|
       if @report.save
-
         format.html { redirect_to @report, notice: 'Report was successfully created.' }
         format.json { render :show, status: :created, location: @report }
       else
@@ -118,6 +143,6 @@ class ReportsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def report_params
-    params.require(:report).permit(:user_id, :content, :daily_report, :monthly_report, :weekly_report, :type)
+    params.require(:report).permit(:daily_report, :monthly_report, :weekly_report, :rep_type, :project_id)
   end
 end
