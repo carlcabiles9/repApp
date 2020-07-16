@@ -67,7 +67,7 @@ class ProjectsController < ApplicationController
   def destroy
     @project.destroy
     respond_to do |format|
-      format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
+      format.html { redirect_to home_index_url, notice: 'Project was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -75,7 +75,7 @@ class ProjectsController < ApplicationController
   def destroy_project
     @project.destroy
     respond_to do |format|
-      format.html { redirect_to students_url, notice: 'Project was successfully destroyed.' }
+      format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

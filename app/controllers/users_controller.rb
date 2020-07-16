@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :authorize_admin, except: %i[index show]
-
+  before_action :authorize_admin, except: %i[index show edit destroy]
+  before_action :set_report,only: %i[show edit update destroy]
   # GET /users
   # GET /users.json
   def index
@@ -25,6 +25,7 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
+    @role = Role.all
     @user = User.new(user_params)
 
     respond_to do |format|
@@ -63,9 +64,11 @@ class UsersController < ApplicationController
   end
 
   private
-
+  def set_report
+    @user = User.find(params[:id])
+  end
   # Only allow a list of trusted parameters through.
   def user_params
-    params.require(:user).permit(:email, :name, :password, :avatar, project_ids: [])
+    params.require(:user).permit(:email, :name, :password, project_ids: [])
   end
 end

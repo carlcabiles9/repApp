@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ReportsController < ApplicationController
-  before_action :set_report, only: %i[show edit update destroy send_daily]
+  before_action :set_report, only: %i[show edit update destroy send_daily ]
 
   # GET /reports
   # GET /reports.json
@@ -34,18 +34,20 @@ class ReportsController < ApplicationController
   end
 
   def show_daily
-    @project = Project.all
+    @projects  = Project.all
     @time = Date.today.to_s(:short)
     @days = Report.where(created_at: Date.today.beginning_of_day..Date.today.end_of_day)
   end
 
   def show_weekly
+    @project = Project.all
     @time = Date.today.beginning_of_week.to_s(:short)
     @end = Date.today.end_of_week.to_s(:short)
     @weeks = Report.where(user_id: current_user.id, created_at: Date.today.beginning_of_week..Date.today.end_of_week)
   end
 
   def show_monthly
+    @project = Project.all
     @time = Date.today.beginning_of_month.to_s
     @end = Date.today.end_of_month.to_s
     @months = Report.where(user_id: current_user.id, created_at: Date.today.beginning_of_month..Date.today.end_of_month)
@@ -143,6 +145,6 @@ class ReportsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def report_params
-    params.require(:report).permit(:daily_report, :monthly_report, :weekly_report, :rep_type, :project_id)
+    params.require(:report).permit(:content, :rep_type, :project_id)
   end
 end

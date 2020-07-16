@@ -17,17 +17,23 @@ class ApplicationController < ActionController::Base
 
   def authorize_admin
     redirect_to(home_index_path, notice: 'Not Allowed') and return unless current_user.has_role? :admin
-
     flash[:notice]
   end
 
   def run
-    if Date.today.monday?
-      User.find(current_user.id).recipients.each do |recipient|
-        mail_opts = { to: recipient.email }
-        reports = current_user.reports.where(created_at: Date.today.beginning_of_week..Date.today.end_of_week)
-        UserMailer.email_report(current_user, reports, mail_opts).deliver_later
+    if user_signed_in?
+      if current_user.recipients.blank?
+        flash[:alert] = 'No email recipients yet'
+      else
+        if Date.today.monday?
+          User.find(current_user.id).recipients.each do |recipient|
+            mail_opts = { to: recipient.email }
+            reports = current_user.reports.where(created_at: Date.today.beginning_of_week..Date.today.end_of_week)
+            UserMailer.email_report(current_user, reports, mail_opts).deliver_later
+          end
+        end
       end
+
     end
   end
 end
