@@ -1,5 +1,5 @@
 = form_with(model: user, local: true) do |form| 
-  - if user.errors.any?
+  -if user.errors.any?
     #error_explanation
       h2
         | pluralize(user.errors.count, "error")
@@ -8,22 +8,30 @@
         - user.errors.full_messages.each do |message|
           li = message
   .container
-       
-    .field.row
-      = form.label :email 
-      = form.text_field :email 
+    .row
+      .col.move
+        .form-inline
+          .field.fa.fa-address-book.fa-2x
+            = form.text_field :email , placeholder: 'EMAIL', class: 'form-control-lg'
+          br
+        .form-inline
+          .field.fa.fa-user-circle.fa-2x
+            = form.text_field :name, placeholder: 'USERNAME', class: 'form-control-lg'
+          br
+        .form-inline
+          .field.fa.fa-lock.fa-2x
+            = form.text_field :password, placeholder: 'PASSWORD', class: 'form-control-lg'
+          br
+      .col.moveright
+        h6.field.row.fa.fa-file.fa-lg 
+          span.Select Project(s) For This User
+        = form.select :project_ids, options_from_collection_for_select(Project.all.sort_by(&:name), :id, :name, form.object.project_ids), {}, include_blank: true, multiple: true, class: 'group' 
+    -Role.all.each do |asd|
+      =asd.name
     
-    .field.row
-      = form.label :name
-      = form.text_field :name
-    
-    .field.row
-      = form.label :password 
-      = form.text_field :password 
-    .field.row
-      =form.label :project
-      = form.select :project_ids, options_from_collection_for_select(Project.all.sort_by(&:name), :id, :name, form.object.project_ids), {}, include_blank: true, multiple: true, class: 'group'
-  
+  .pad    
     .actions
-      = form.submit   
-    
+      = form.submit class: "btn btn-primary"
+
+  
+      

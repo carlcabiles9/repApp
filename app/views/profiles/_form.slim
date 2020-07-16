@@ -1,0 +1,44 @@
+= form_with(model: profile, local: true) do |form| 
+  - if profile.errors.any? 
+    #error_explanation
+      h2 = pluralize(profile.errors.count, "error") 
+        | prohibited this profile from being saved:</h2>
+
+      ul
+         profile.errors.full_messages.each do |message| 
+          li = message
+          
+  .form-row
+    .form-inline
+      h6 Creating Profile For:
+      = text_field_tag 'user_id',nil,value: current_user.name.humanize, class:'form-control col-md-8'
+  br
+  .form-row
+    .col-4
+      = form.text_field :firstname, class: "form-control", placeholder: 'firstname'
+    .col-4
+      = form.text_field :lastname, class: "form-control", placeholder: 'lastname'
+    .col-4
+      = form.text_field :number, class: "form-control", placeholder: 'number'
+  br
+  .form-row 
+    .col
+      = form.text_field :street, class: "form-control", placeholder: 'street'
+    .col
+      = form.text_field :bldg, class: "form-control", placeholder: 'bldg'
+  br
+  .form-row
+    .col
+      = form.text_field :city, class: "form-control", placeholder: 'city'
+    .col
+      = form.text_field :province, class: "form-control", placeholder: 'province'
+      br
+  .form-row
+    .fa.fa-user-circle.fa-lg AVATAR
+    .col 
+      = form.file_field :avatar, class: "form-label btn btn-primary"
+    .col
+      = form.text_field :status, class: "form-control", placeholder: 'Civil Status'
+      br
+    .actions    
+      =form.submit class: "btn btn-primary"

@@ -1,9 +1,30 @@
-h5 REPORT For a week from:
-=@time.to_s
-h7 TO
-=@end.to_s
+.container
+    -if Report.all.where(created_at: Date.today.beginning_of_week..Date.today.end_of_week, rep_type: "weekly").blank?
+        h6.fa.fa-close.fa-3x No Reports for Weekly Reports this week yet.
+        br
+        =link_to "Create Report Now", new_report_path, class: "btn btn-success"
+    -else    
+        h4 WEEKLY REPORT FOR THIS WEEK:
+        - Project.all.each do |p|
+            br 
+            h6 For Project: 
+            h6.fa.fa-file.fa-3x  =p.name
+            br
+            -Report.all.where(project_id: p.id, rep_type: "weekly", created_at: Date.today.beginning_of_week..Date.today.end_of_week).each do |report|
+                table
+                    thead
+                        tr
+                            th Report Type
+                            th Content
+                            th Created at
+                            th colspan = 3            
+                    tbody
+                        tr
+                            td = report.rep_type.humanize + " Report"
+                            td = report.content
+                            td  = I18n.l(report.created_at, format: "%a %m/%d/%y").to_s
+                            td =link_to "Edit This Report", edit_report_path(report), class: "btn btn-secondary"
+                            td =link_to 'Show Data', report_path(report), class: "btn btn-info"
+                            td = link_to 'Delete Report', report, method: :delete, data: { confirm: 'Are you sure?' } , class: 'btn btn-danger'
 
--@weeks.each do |weekly|
-    li = weekly.weekly_report 
-    = I18n.l(weekly.created_at, format: "%a %m.%d.%y").to_s
         

@@ -2,16 +2,15 @@
   p
     = text_field_tag :search, params[:search] 
     = submit_tag "Search", :name => nil 
-  
-h3.navbar.navbar-default List of Projects
-table.table.table-striped
+.navbar.navbar-default
+  h4.fa.fa-file.fa-lg List of Projects 
+table#example-table 
   thead
-    tr
-      
+    tr 
       th Name
       th User
+      th Project Status
       th colspan="3"
-    
   tbody
     - @projects.each do |project| 
       tr
@@ -20,10 +19,9 @@ table.table.table-striped
           - User.find(project.participant_ids).each do |p| 
             li = p.name 
           - if project.status = "false"  
-            td Pending
+            td On-Going
+        td = link_to 'Edit', edit_project_path(project),class: 'form-control btn btn-primary'
+        td = link_to 'Delete Project', project, method: :delete, data: { confirm: 'Are you sure?' } , class: 'btn btn-primary'
         
-        td = link_to 'Edit', edit_project_path(project)
-        td = link_to 'Delete Project', project, method: :delete, data: { confirm: 'Are you sure?' } 
-
 
 

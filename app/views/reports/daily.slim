@@ -1,13 +1,13 @@
-= form_with(model: @report, local: true) do |form|
-    h8 Report For: 
-    .d-flex.justify-content-center
-        .container        
-            p
-            = form.label :Project
-            = form.select :project_id, options_from_collection_for_select(current_user.projects.sort_by(&:name), :id, :name, form.object.project_id), {}, include_blank: true, multiple: false, class: "collect-form"
-            p
-            = form.label :daily_report
-            br
-            = form.text_area :daily_report, :rows => 10, style: 'width:100%;'
-            .actions
-            = form.submit
+= form_with(scope: @report, local: true) do |form|
+    .form-inline
+        h5 Report For: 
+        .d-flex.justify-content-center
+            .container        
+                p
+                    = form.select :project_id, options_from_collection_for_select(current_user.projects.sort_by(&:name), :id, :name, form.object.project_id), {}, include_blank: true, multiple: false, class: "custom-select"
+    | Report Type:
+    
+    = form.label :daily_report, class: "form-control col-sm-2"
+    = form.text_area :daily_report, :rows => 10, style: 'width:100%;' , class: 'form-control fa fa-sun-o'
+    .actions
+    = form.submit

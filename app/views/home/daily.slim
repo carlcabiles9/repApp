@@ -1,26 +1,35 @@
 .boxy
-    .container
-        .row
-            .col
-                h7 REPORT FOR DAY:
-                = @time.to_s   
-                - @days.each do |daily| 
-                    .container
-                        -if daily.daily_report.blank?
-                            h8 No Daily Report
-                            
-                        -else
-                            textarea = daily.daily_report 
-                            br
-                            = I18n.l(daily.created_at, format: "%a %m.%d.%y").to_s
-                            
-            .col
-                = render template: "recipients/index", locals: { recipients: @recipients }
-            br
-            br
-        .row
-            = link_to 'Send Now', send_daily_home_index_path, method: :post, class: 'btn btn-success'    
-            = link_to 'Send As PDF', send_daily_home_index_path, method: :post, class: 'btn btn-success'    
+    .row
+        .col
+            .container          
+            -if Report.all.where(created_at: Date.today).nil?
+                h6.fa.fa-close.fa-3x No Created Reports For Today 
+                br
+                =link_to "Create Report Now", new_report_path, class: "btn btn-success"
+            -else
+                h4  DAILY REPORT FOR DAY:
+                - Project.all.each do |p|
+                    br 
+                    h6 For Project: 
+                    h6.fa.fa-file.fa-3x  =p.name
+                    br
+                    -Report.all.where(user_id: current_user,project_id: p.id, rep_type: "daily", created_at: Date.today.beginning_of_day..Date.today.end_of_day).each do |report|
+                        table
+                            thead
+                                tr
+                                    th Report Type
+                                    th Content
+                                    th Created at
+                                    th colspan = 3            
+                            tbody
+                                tr
+                                    td = report.rep_type.humanize + " Report"
+                                    td = report.content
+                                    td  = I18n.l(report.created_at, format: "%a %m/%d/%y").to_s
+        .col
+            .container
+                =render template: "recipients/index", locals: { recipients: @recipients}
 
-        br
-        = link_to 'Back', home_index_path
+    = link_to 'Send Daily Report', send_daily_home_index_path, method: :post, class: 'btn btn-success'    
+
+    

@@ -1,32 +1,49 @@
 - if can? :manage, Project
-  h1 = current_user.name
-  h7 I am an Admin
-  br
   .container
     .row
-      .col-4
+      .col-6.border.border-dark
+        br
+        h3.fa.fa-user-circle.fa-3x =current_user.name.humanize
+        = link_to fa_icon("edit", class: "th-large"), profiles_path, {:style=>'color: black;', :class => "btn btn-light"}
+        h6 =current_user.email
         h8 My Projects:
         table.table.table-striped
           - current_user.projects.each do |project|
             tr
-              td = project.name
-            center 
-        = link_to 'Create Projects', new_project_path, class: 'btn btn-success'
-        = link_to 'Create Users', new_user_path, class: 'btn btn-success'
-      .col-4
-        = render template: "projects/index", locals: { projects: @projects }
-        = link_to 'Create Daily Report', daily_reports_path, class: 'fa fa-address-card fa-2x text'
+              td.fa.fa-pencil-square
+              td = project.name 
+        = link_to 'Create Projects', new_project_path, class: 'btn btn-info btn-block'
+        = link_to 'Create Users', new_user_path, class: 'btn btn-info btn-block'
+        = link_to 'Create Reports', new_report_path, class: 'btn btn-info btn-block'
+        br
+      .col-6.border.border-dark
+        .container
+            .send
+              =link_to "SEND DAILY REPORT", daily_home_index_path, class: "fa fa-send-o fa-lg"
+        .move
+          h6.fa.fa-eye.fa-2x View My Reports
+        br
+        br
+        .btn-group-vertical.btn-block
+          =link_to 'VIEW DAILY REPORTS', show_daily_reports_path, class: "btn btn-primary btn-block"
+          =link_to 'VIEW WEEKLY REPORTS', show_weekly_reports_path, class: "btn btn-info btn-block"
+          =link_to 'VIEW MONTHLY REPORTS', show_monthly_reports_path, class: "btn btn-light btn-block"
 
-      .col-4
-        = link_to 'Create Daily Report', daily_reports_path, class: 'fa fa-address-card fa-2x text'
-        = link_to 'Create Weekly Report', weekly_reports_path, class: 'fa fa-address-card fa-2x text'
-        = link_to 'Create Monthly Report', monthly_reports_path, class: 'fa fa-address-card fa-2x text'
+    .row.border.border-dark
+      .col-6.border.border-dark
+        br
+        = render template: "projects/index", locals: { projects: @projects }
+        br
+      .col-6.border.border-dark
+        br
+        =render template: "users/index", locals: { users: @users}
+    i.fa.fa-send-o          
+    
+
+
+
     
 - else
-  i.fa.fa-address-card.fa-2x
-  h7 I am not an Admin   
-  h1 = current_user.name
-  h3 My Projects:
   .container
     .row
       .col
@@ -34,15 +51,38 @@
           - current_user.projects.each do |project|
             tr
               td = project.name
-      .col
-      .col
-        ul
-          = link_to 'Create Daily Report', daily_reports_path, class: 'fa fa-pencil fa-lg text'
-          = link_to 'Create Weekly Report', weekly_reports_path, class: 'fa fa-pencil fa-lg text'
-          = link_to 'Create Monthly Report', monthly_reports_path, class: 'fa fa-pencil fa-lg text'
-        
+      .container
+    .row
+      .col-6.border.border-dark
+        br
+        h3.fa.fa-user-circle.fa-3x =current_user.name.humanize
+        = link_to fa_icon("edit", class: "th-large"), profiles_path, {:style=>'color: black;', :class => "btn btn-light"}
+        h6 =current_user.email
+        h8 My Projects:
+        table.table.table-striped
+          - current_user.projects.each do |project|
+            tr
+              td.fa.fa-pencil-square
+              td = project.name 
+        = link_to 'Create Projects', new_project_path, class: 'btn btn-info btn-block'
+        = link_to 'Create Users', new_user_path, class: 'btn btn-info btn-block'
+        = link_to 'Create Reports', new_report_path, class: 'btn btn-info btn-block'
+        br
+      .col-6.border.border-dark
+        .container
+          .send
+            =link_to "SEND DAILY REPORT", daily_home_index_path, class: "fa fa-send-o fa-lg"
+        .move
+          h6.fa.fa-eye.fa-2x View My Reports
+        br
+        br
+        .btn-group-vertical.btn-block
+          =link_to 'VIEW DAILY REPORTS', show_daily_reports_path, class: "btn btn-primary btn-block"
+          =link_to 'VIEW WEEKLY REPORTS', show_weekly_reports_path, class: "btn btn-info btn-block"
+          =link_to 'VIEW MONTHLY REPORTS', show_monthly_reports_path, class: "btn btn-light btn-block"
 
-
+    .row.border.border-dark
+  
 
             
    

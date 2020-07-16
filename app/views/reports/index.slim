@@ -1,34 +1,47 @@
-p#notice = notice
-
-h1 Reports
-table.table.table-striped
-  thead
-    tr
-      th Project
-      th Daily Report
-      th Weekly Report
-      th = link_to 'New Report', new_report_path
-      th colspan="3"
-      
-  tbody
-    -@reports.each do |report|
-      tr
-        td = Project.all.find(report.project_id).name
-        td = report.daily_report
-        td = report.weekly_report
-        td = link_to 'Show', report
-        td = link_to 'Edit', edit_report_path(report)
-        td = link_to 'Destroy', report, method: :delete, data: { confirm: 'Are you sure?' }
-
-
-center
-  = link_to 'Show All Daily Reports', show_daily_reports_path, class: 'fa fa-address-card' 
-  br   
-  = link_to 'Show All Weekly Reports', show_weekly_reports_path, class: 'btn btn-success'   
-  br 
-  = link_to 'Show All Monthly Reports', show_monthly_reports_path, class: 'btn btn-success'    
+-if current_user.has_role? :admin
+  = link_to 'Show All Users Reports', show_daily_reports_path
   br
-  = link_to 'New Report', new_report_path
+
+  -if Report.all.where(created_at: Date.today).nil?
+    .row
+    h6.fa.fa-close.fa-3x No Created Reports For Today 
+    br
+    =link_to "Create Report Now", new_report_path, class: "btn btn-success"
+  -else
+  
+    h4 REPORTS:
+    - Project.all.each do |p|
+      br 
+      h6 For Project: 
+      h6.fa.fa-file.fa-3x =p.name
+      br
+      -Report.all.where(project_id: p.id).each do |report|
+        table
+          thead
+            tr
+              th Report Type
+              th Content
+              th Created at
+              th colspan = 3            
+          tbody
+            tr
+              td = report.rep_type.humanize + " Report"
+              td = report.content
+              td  = I18n.l(report.created_at, format: "%a %m/%d/%y").to_s
+              td =link_to "Edit This Report", edit_report_path(report), class: "btn btn-secondary"
+              td =link_to 'Show Data', report_path(report), class: "btn btn-info"
+              td = link_to 'Delete Report', report, method: :delete, data: { confirm: 'Are you sure?' } , class: 'btn btn-danger'
+
+  .col
+    
+  .col
+   
+
+
+
+              
+        
+
 
 
 

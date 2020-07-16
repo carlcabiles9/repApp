@@ -1,0 +1,23 @@
+= form_with(model: project, local: true) do |form| 
+  - if project.errors.any? 
+    #error_explanation
+      h2 = pluralize(project.errors.count, "error") 
+      | prohibited this project from being saved:</h2>
+      ul
+        project.errors.full_messages.each do |message| 
+          li = message 
+  .move      
+    .form-group
+    
+      h6.field.row.fa.fa-file.fa-2x 
+          span Enter Project Name
+      = form.text_field :name , class: 'form-control col-md-6', placeholder: 'Project Name'
+    
+    .form-group
+      h6.field.row.fa.fa-user-circle.fa-2x 
+        span Select Users(s) For This Project
+      = form.select :participant_ids, options_from_collection_for_select(User.all.sort_by(&:name), :id, :name, form.object.user_id), {}, include_blank: true, multiple: true, class: "form-control col-6"
+
+    .actions
+      = form.submit
+  

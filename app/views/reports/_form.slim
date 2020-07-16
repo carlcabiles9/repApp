@@ -9,14 +9,17 @@
           li = message
   .container
     .col-md-4
-      = form.select :project_id, options_from_collection_for_select(current_user.projects.all.sort_by(&:name), :id, :name, form.object.project_id), {}, include_blank: true, multiple: false, class: "collect-form"
-    .col-md-4        
+      h6 Select PROJECT
+      = form.select :project_id, options_from_collection_for_select(current_user.projects.all.sort_by(&:name), :id, :name, form.object.project_id), {}, include_blank: true, multiple: false, class: "custom-select"
+    .col-md-4   
+      h6 Select Report Type
+      = form.select :rep_type, options_for_select([["Daily Report","daily"],["Weekly Report","weekly"],["Monthly Report","monthly"]]), {}, include_blank: true, multiple: false, class: "custom-select"
       p
     .field
-      = form.label :daily_report
-      = form.text_area :daily_report, :rows => 10, style: 'width:80%;'
+      = form.label :content
+      = form.text_area :content, :rows => 10, style: 'width:80%;', class: "form-control"
     .actions
-      = form.submit
+      = form.submit class: "btn btn-primary"
 
           
 
