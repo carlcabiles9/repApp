@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class RecipientsControllerTest < ActionDispatch::IntegrationTest
@@ -5,17 +7,17 @@ class RecipientsControllerTest < ActionDispatch::IntegrationTest
     @recipient = recipients(:one)
   end
 
-  test "should get index" do
+  test 'should get index' do
     get recipients_url
     assert_response :success
   end
 
-  test "should get new" do
+  test 'should get new' do
     get new_recipient_url
     assert_response :success
   end
 
-  test "should create recipient" do
+  test 'should create recipient' do
     assert_difference('Recipient.count') do
       post recipients_url, params: { recipient: { email: @recipient.email, user_id: @recipient.user_id } }
     end
@@ -23,22 +25,22 @@ class RecipientsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to recipient_url(Recipient.last)
   end
 
-  test "should show recipient" do
+  test 'should show recipient' do
     get recipient_url(@recipient)
     assert_response :success
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get edit_recipient_url(@recipient)
     assert_response :success
   end
 
-  test "should update recipient" do
+  test 'should update recipient' do
     patch recipient_url(@recipient), params: { recipient: { email: @recipient.email, user_id: @recipient.user_id } }
     assert_redirected_to recipient_url(@recipient)
   end
 
-  test "should destroy recipient" do
+  test 'should destroy recipient' do
     assert_difference('Recipient.count', -1) do
       delete recipient_url(@recipient)
     end

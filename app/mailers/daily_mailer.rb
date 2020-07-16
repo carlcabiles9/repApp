@@ -3,10 +3,10 @@
 class DailyMailer < ApplicationMailer
   default from: 'cccabiles@cdasia.com'
 
-  def email_report(user, report, mail_opts)
+  def email_report(user, reports, mail_opts)
     @user = user
-    @report = report
+    @reports = reports
     @url = 'http://localhost/3000'
-    mail(mail_opts, subject: 'Daily Report')
+    mail(mail_opts)
   end
 end

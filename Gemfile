@@ -5,10 +5,10 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.3'
 gem 'bootstrap', '~> 4.5.0'
-gem 'font-awesome-rails'
-
 gem 'cancancan'
 gem 'devise'
+gem 'font-awesome-rails'
+gem 'gravtastic'
 gem 'groupdate'
 gem 'jquery-rails'
 gem 'paper_trail'
@@ -36,7 +36,9 @@ gem 'sunspot_solr'
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
 gem 'bcrypt', '~> 3.1.7'
-
+group :assets do
+  gem 'chosen-rails'
+end
 # Use Active Storage variant
 gem 'image_processing', '~> 1.2'
 gem 'rubocop', '~> 0.86.0', require: false
@@ -44,6 +46,11 @@ gem 'rubocop-performance', require: false
 gem 'rubocop-rails', require: false
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
+group :assets do
+  gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
+end
+
+gem 'will_paginate'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
