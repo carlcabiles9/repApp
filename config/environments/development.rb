@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -50,19 +52,19 @@ Rails.application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = false
-  
+
   config.assets.unknown_asset_fallback = true
   # Suppress logger output for asset requests.
   config.assets.quiet = true
-  
-# Defaults to:
-# config.action_mailer.sendmail_settings = {
-#   location: '/usr/sbin/sendmail',
-#   arguments: '-i'
-# }
-config.action_mailer.perform_deliveries = true
-config.action_mailer.raise_delivery_errors = true
-config.action_mailer.default_options = {from: 'cabilesc.alvin@gmail.com'}
+
+  # Defaults to:
+  # config.action_mailer.sendmail_settings = {
+  #   location: '/usr/sbin/sendmail',
+  #   arguments: '-i'
+  # }
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default_options = { from: 'cabilesc.alvin@gmail.com' }
   # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true
 
@@ -71,14 +73,14 @@ config.action_mailer.default_options = {from: 'cabilesc.alvin@gmail.com'}
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
 
-config.action_mailer.delivery_method = :smtp
-config.action_mailer.smtp_settings = {
-  address:              'smtp.gmail.com',
-  port:                 587,
-  domain:               'localhost:3000',
-  user_name:            'cabilesc.alvin@gmail.com',
-  password:             'carlalvin123',
-  authentication:       'plain',
-  enable_starttls_auto: true }
-
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: 'smtp.gmail.com',
+    port: 587,
+    domain: 'localhost:3000',
+    user_name: 'cabilesc.alvin@gmail.com',
+    password: 'carlalvin123',
+    authentication: 'plain',
+    enable_starttls_auto: true
+  }
 end

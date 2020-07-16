@@ -10,23 +10,30 @@ Rails.application.routes.draw do
       get :show_monthly
       get :show_weekly
       get :show_daily
+      post :show_daily
+      post :send_daily
     end
   end
+  resources :profiles
   resources :home do
     collection do
       get :monthly
       get :weekly
       get :daily
-      
+
       post :send_daily
-      end
+    end
   end
-  resources :projects
+  resources :projects do
+    collection do
+      post :toggle_status
+    end
+  end
+
   resources :recipients
   devise_for :users
   resources :users
-  get 'settings/profile', to: 'settings#profile', as: :settings_profile
-  post 'settings/profile', to: 'settings#update', as: :update_settings_profile
+
   devise_scope :user do
     authenticated :user do
       root 'home#index', as: :authenticated_root
