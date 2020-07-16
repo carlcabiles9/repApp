@@ -3,7 +3,9 @@
 *= require_tree 
 *= require_self
 *= require font-awesome
+
 */
+@import "bootstrap";
  
 .boxy{
     border: 2px solid black;
@@ -22,16 +24,64 @@
     font-size: 30px;
     margin-bottom: 20px;
     border: 1px solid transparent;
-    background-color: turquoise;
   }
 
 .pad{
-  padding: 5px;
-  padding-top: 11em;
-  padding-left: 20rem;
+  padding-left: 23rem;
   padding-right: 5em;
+  padding-top: -3em;
+}
+.pad2{
+  padding: 1px;
+  padding-top: 1em;
+  padding-left: 4rem;
+  padding-right: 1em;
+}
+.pad3{
+  padding-top: 8em;
+  padding-left: 16rem;
+  padding-right: 1em;
 }
 
 .bg {
   background-color: turquoise;
+}
+
+.bgimg {
+  background-image: url( asset-path('bg.png'));
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: #432454;
+  margin-bottom: 5px;
+}
+.send{
+  float: right;
+}
+.move{
+  padding-top: 4em;
+  padding-left: 13rem;
+}
+.moveright{
+  padding-top :4em;
+  padding-right: 16em;
+}
+.group{
+  font-size: 25px;
+  width: 280px;
+  height: 150px;
+}
+.gravatar {
+  height: 30px;
+  width: auto;
+}
+.c{
+padding-right: 16em;
+}
+.prof{
+  font-style: oblique;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-stretch: semi-expanded;
+  font-size: 20px;
 }
