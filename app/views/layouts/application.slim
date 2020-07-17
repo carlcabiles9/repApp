@@ -11,7 +11,7 @@ html
     script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
     script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"
     script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"
-    
+
     -if user_signed_in? 
     -else 
       = image_tag current_user.gravatar_url, :class => "gravatar" 
@@ -25,7 +25,6 @@ html
             a.fa.fa-book href="/reports" Reports | 
             a.fa.fa-user-circle-o href="/users" Users |
             a.fa.fa-pencil href="/projects" Projects
-           
         a.fa.fa-sign-out href="/users/sign_out" Logout
   div class = "boxy"
 
