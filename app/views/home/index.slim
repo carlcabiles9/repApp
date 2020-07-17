@@ -1,16 +1,16 @@
-- if can? :manage, Project
+- if can? :manage, Project, User
   .container
     .row
       .col-6.border.border-dark
         br
         h3.fa.fa-user-circle.fa-3x =current_user.name.humanize
-        = link_to fa_icon("edit", class: "th-large"), profiles_path, {:style=>'color: black;', :class => "btn btn-light"}
+        =link_to "User Profile", profiles_path, class: "fa fa-edit"
         h6 =current_user.email
         h8 My Projects:
         table.table.table-striped
           - current_user.projects.each do |project|
             tr
-              td.fa.fa-pencil-square
+              td.fa.fa-book
               td = project.name 
         = link_to 'Create Projects', new_project_path, class: 'btn btn-info btn-block'
         = link_to 'Create Users', new_user_path, class: 'btn btn-info btn-block'
@@ -23,11 +23,11 @@
         .move
           h6.fa.fa-eye.fa-2x View My Reports
         br
-        br
-        .btn-group-vertical.btn-block
-          =link_to 'VIEW DAILY REPORTS', show_daily_reports_path, class: "btn btn-primary btn-block"
-          =link_to 'VIEW WEEKLY REPORTS', show_weekly_reports_path, class: "btn btn-info btn-block"
-          =link_to 'VIEW MONTHLY REPORTS', show_monthly_reports_path, class: "btn btn-light btn-block"
+        
+          
+        =link_to 'VIEW DAILY REPORTS', show_daily_reports_path, class: "btn btn-light btn-block"
+        =link_to 'VIEW WEEKLY REPORTS', show_weekly_reports_path, class: "btn btn-light btn-block"
+        =link_to 'VIEW MONTHLY REPORTS', show_monthly_reports_path, class: "btn btn-light btn-block"
 
     .row.border.border-dark
       .col-6.border.border-dark
@@ -37,7 +37,6 @@
       .col-6.border.border-dark
         br
         =render template: "users/index", locals: { users: @users}
-    i.fa.fa-send-o          
     
 
 
@@ -62,7 +61,7 @@
         table.table.table-striped
           - current_user.projects.each do |project|
             tr
-              td.fa.fa-pencil-square
+              td.fa.fa-book
               td = project.name 
         = link_to 'Create Projects', new_project_path, class: 'btn btn-info btn-block'
         = link_to 'Create Users', new_user_path, class: 'btn btn-info btn-block'
