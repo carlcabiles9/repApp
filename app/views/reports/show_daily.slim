@@ -1,6 +1,6 @@
 .container
     
-    -if Report.all.where(created_at: Date.today).nil?
+    -if Report.all.where(created_at: Date.today.beginning_of_month..Date.today.end_of_month, rep_type: "daily").blank?
         h6.fa.fa-close.fa-3x No Created Reports For Today 
         br
         =link_to "Create Report Now", new_report_path, class: "btn btn-success"
