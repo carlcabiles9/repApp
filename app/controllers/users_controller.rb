@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :authorize_admin, except: %i[index show edit destroy]
+  before_action :authorize_admin
   before_action :set_report,only: %i[show edit update destroy]
   # GET /users
   # GET /users.json
