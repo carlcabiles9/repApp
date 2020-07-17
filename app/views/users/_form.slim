@@ -26,9 +26,7 @@
         h6.field.row.fa.fa-file.fa-lg 
           span.Select Project(s) For This User
         = form.select :project_ids, options_from_collection_for_select(Project.all.sort_by(&:name), :id, :name, form.object.project_ids), {}, include_blank: true, multiple: true, class: 'group' 
-    -Role.all.each do |asd|
-      =asd.name
-    
+   
   .pad    
     .actions
       = form.submit class: "btn btn-primary"
