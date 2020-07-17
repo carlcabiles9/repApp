@@ -1,36 +1,54 @@
 <% if current_user.profile.blank?%>
-<h1><i class =" fa fa-user-plus" aria-hidden="true">  Please Create Your Profile  
+<h4><i class =" fa fa-user-plus" aria-hidden="true">  Please Create Your Profile  
 </h4></i>
 <%= link_to 'Create Profile' , new_profile_path, class: 'btn btn-primary col-md-6'%>
 <%else%>
 </div>
-<h2><%= current_user.profile.lastname.humanize %>,<%= current_user.profile.firstname.humanize %>  
-<%if current_user.roles.any? %>
- || Position: ADMIN
-<%end%></h2>
+
+<div class = "row">
+<div class = "form">
+<div class = "col-6">
+<h4><%= current_user.profile.lastname.humanize %>,<%= current_user.profile.firstname.humanize %>  
+</h4><%if current_user.roles.any? %>
+ Position: ADMIN
+<%end%>
 <% if current_user.profile.avatar.attached? %>
   <%=image_tag current_user.profile.avatar , class: "rounded-circle"%>
 <%else%>
   no image
 <%end%>
-<form>
-  <div class="prof">
-  FIRST NAME
-  <%= current_user.profile.firstname %>  
-  LAST NAME
-  <%= current_user.profile.lastname %>  
-  Contact Number
-  <%= current_user.profile.number %>  
-  St:
-  <%= current_user.profile.street %>  
-  Building:
-  <%= current_user.profile.bldg %>  
-  City:
-  <%= current_user.profile.city %>  
-  Province
-  <%= current_user.profile.province %>  
-  Marital Status
-  <%= current_user.profile.status %>  
-  <%= link_to 'New Profile', new_profile_path %>
+</div>
+</div>
+<div class = "col-6">
+<div class = "file">
+<div class = "form-inline">
+  Contact Number:
+  <%= current_user.profile.number %> 
+</div>
+  <br>
+
+  Address: 
+  <div class = "form-inline">
+  <span>
+    <u>
+    <div class= "form-control">
+    <%= current_user.profile.street %>  
+    <%= current_user.profile.bldg %>  
+    <br></u>
+  </span>  
+    </div>
   </div>
+  <span><u>
+  <div class= "form-control">
+  <%= current_user.profile.city %>  
+  <%= current_user.profile.province %> 
+  </span></u>
+  </div>
+  
+  <br> 
+  Civil Status:
+  <%= current_user.profile.status %>  
+  </div>
+  </div>
+
 <%end%>
