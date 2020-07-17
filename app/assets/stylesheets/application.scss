@@ -38,8 +38,8 @@
   padding-right: 1em;
 }
 .pad3{
-  padding-top: 8em;
-  padding-left: 16rem;
+  padding-top: 9.5em;
+  padding-left: 15rem;
   padding-right: 1em;
 }
 
@@ -84,4 +84,14 @@ padding-right: 16em;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   font-stretch: semi-expanded;
   font-size: 20px;
+}
+.file{
+  font-weight: bold;
+  float: right;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: larger;
+  font-variant: initial;
+  font-stretch: wider;
+  text-align: justify;
+  text-shadow: 2rem;
 }
