@@ -4,6 +4,7 @@
       .col-6.border.border-dark
         br
         h3.fa.fa-user-circle.fa-3x =current_user.name.humanize
+        =link_to "Edit Account", edit_user_path(current_user), class: "fa fa-edit"
         =link_to "User Profile", profiles_path, class: "fa fa-edit"
         h6 =current_user.email
         h8 My Projects:
@@ -50,38 +51,41 @@
           - current_user.projects.each do |project|
             tr
               td = project.name
-      .container
+    
     .row
       .col-6.border.border-dark
         br
         h3.fa.fa-user-circle.fa-3x =current_user.name.humanize
-        = link_to fa_icon("edit", class: "th-large"), profiles_path, {:style=>'color: black;', :class => "btn btn-light"}
+        =link_to "Edit Account", edit_user_path(current_user), class: "fa fa-edit"
+
+        br
+        =link_to "User Profile", profiles_path, class: "fa fa-edit"
         h6 =current_user.email
         h8 My Projects:
         table.table.table-striped
-          - current_user.projects.each do |project|
-            tr
-              td.fa.fa-book
-              td = project.name 
-        = link_to 'Create Projects', new_project_path, class: 'btn btn-info btn-block'
-        = link_to 'Create Users', new_user_path, class: 'btn btn-info btn-block'
-        = link_to 'Create Reports', new_report_path, class: 'btn btn-info btn-block'
+          -if current_user.projects.blank?
+            br
+            center
+              h6.fa.fa-book.fa-lg NO PROJECTS YET
+          -else
+            - current_user.projects.each do |project|
+              tr
+                td.fa.fa-book
+                td = project.name 
         br
       .col-6.border.border-dark
         .container
           .send
             =link_to "SEND DAILY REPORT", daily_home_index_path, class: "fa fa-send-o fa-lg"
         .move
-          h6.fa.fa-eye.fa-2x View My Reports
+          center
+              h6.fa.fa-eye.fa-2x View My Reports
         br
         br
         .btn-group-vertical.btn-block
           =link_to 'VIEW DAILY REPORTS', show_daily_reports_path, class: "btn btn-primary btn-block"
           =link_to 'VIEW WEEKLY REPORTS', show_weekly_reports_path, class: "btn btn-info btn-block"
           =link_to 'VIEW MONTHLY REPORTS', show_monthly_reports_path, class: "btn btn-light btn-block"
-
     .row.border.border-dark
-  
-
             
    

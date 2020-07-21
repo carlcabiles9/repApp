@@ -1,0 +1,17 @@
+-if(current_user.profile.nil?)
+    = render 'form', profile: @profile
+
+-else
+h1.fa.fa-check-circle.fa-2x User Has Already Created His Profile.
+br
+br
+br
+br
+center
+=link_to 'View My Profile', profiles_path, class: "btn btn-danger btn-lg col-md-6"
+br
+br
+br
+br
+br
+

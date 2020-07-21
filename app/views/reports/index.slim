@@ -2,20 +2,20 @@
   = link_to 'Show All Users Reports', show_daily_reports_path
   br
 
--if Report.all.blank?
+-if Report.all.where(user_id: current_user.id).blank?
   .row
-  h6.fa.fa-close.fa-3x No Created Reports For Today 
+  h6.fa.fa-close.fa-3x No Created Reports 
   br
   =link_to "Create Report Now", new_report_path, class: "btn btn-success"
 -else
   
   h4 REPORTS:
-  - Project.all.each do |p|
+  - current_user.projects.all.each do |p|
     br 
     h6 For Project: 
     h6.fa.fa-file.fa-3x =p.name
     br
-    -Report.all.where(project_id: p.id).each do |report|
+    -Report.all.where(user_id: current_user.id, project_id: p.id).each do |report|
       table
         thead
           tr

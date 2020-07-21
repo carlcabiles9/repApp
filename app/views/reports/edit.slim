@@ -1,9 +1,6 @@
 h1 Editing Report
-
-= render 'form', report: @report
-.pad3
+.form-group
     .row
-        = link_to 'Show Data', @report, class: "btn btn-info btn-sm-block"
-        .move
-        = link_to 'Back to home', home_index_path, class: "btn btn-primary btn-lg-block"
+    = render 'form', report: @report
+    = link_to 'Show Data', @report, class: "btn btn-success btn-sm-block"
 
