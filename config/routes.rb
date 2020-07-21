@@ -32,7 +32,12 @@ Rails.application.routes.draw do
 
   resources :recipients
   devise_for :users
-  resources :users
+  resources :users do
+  collection do
+    
+    get 'show_report', action: :show_report, controller: 'users'
+  end
+end
 
   devise_scope :user do
     authenticated :user do
