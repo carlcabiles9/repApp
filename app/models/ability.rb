@@ -9,8 +9,11 @@ class Ability
     user ||= User.new # guest user (not logged in)
     if user.has_role? :admin
       can :manage, :all
+      if user.present?  # additional permissions for logged in users (they can read their own posts)
+        can :manage, User, user_id: user.id  
+      end
     else
-      can :read, :Project, :User
+      can :read, :Project
       can :manage, :Report
     end
     #
