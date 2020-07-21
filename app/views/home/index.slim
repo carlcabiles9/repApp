@@ -5,6 +5,7 @@
         br
         h3.fa.fa-user-circle.fa-3x =current_user.name.humanize
         =link_to "Edit Account", edit_user_path(current_user), class: "fa fa-edit"
+        br
         =link_to "User Profile", profiles_path, class: "fa fa-edit"
         h6 =current_user.email
         h8 My Projects:
