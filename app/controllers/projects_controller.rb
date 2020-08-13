@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
 class ProjectsController < ApplicationController
-  before_action :set_project, only: %i[show edit update destroy destroy_project search toggle_status]
+  before_action :set_project, only: %i[show edit update destroy destroy_project search]
   before_action :authorize_admin
   # GET /projects
   # GET /projects.json
   def index
     @projects = Project.all
     @users = User.all
-
     @search = Project.search do
       fulltext params[:search]
     end
@@ -24,6 +23,9 @@ class ProjectsController < ApplicationController
   # GET /projects/new
   def new
     @project = Project.new
+    @recipient = Recipient.new
+    @recipients = Recipient.all
+    
   end
 
   # GET /projects/1/edit
@@ -39,8 +41,8 @@ class ProjectsController < ApplicationController
     @project.user_id = current_user.id
     respond_to do |format|
       if @project.save
-        format.html { redirect_to @project, notice: 'Project was successfully created.' }
-        format.json { render :show, status: :created, location: @project }
+        format.html { redirect_to home_index_path, notice: 'Project was successfully created.' }
+        format.json { redirect_to projects_path }
       else
         format.html { render :new }
         format.json { render json: @project.errors, status: :unprocessable_entity }
@@ -48,13 +50,14 @@ class ProjectsController < ApplicationController
     end
   end
 
+ 
   # PATCH/PUT /projects/1
   # PATCH/PUT /projects/1.json
   def update
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to @project, notice: 'Project was successfully updated.' }
-        format.json { render :show, status: :ok, location: @project }
+        format.html { redirect_to projects_path ,notice: 'Project was successfully updated.' }
+        format.json { redirect_to projects_path }
       else
         format.html { render :edit }
         format.json { render json: @project.errors, status: :unprocessable_entity }
@@ -89,6 +92,6 @@ class ProjectsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def project_params
-    params.require(:project).permit(:name, :status, participant_ids: [])
+    params.require(:project).permit(:name, :status, participant_ids: [], recipient_ids: [])
   end
 end
