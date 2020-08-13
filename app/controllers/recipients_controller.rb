@@ -26,11 +26,10 @@ class RecipientsController < ApplicationController
   def create
     @users = User.all
     @recipient = Recipient.new(recipient_params)
-    @recipient.user_id = current_user.id
     respond_to do |format|
       if @recipient.save
-        format.html { redirect_to @recipient, notice: 'Recipient was successfully created.' }
-        format.json { render :show, status: :created, location: @recipient }
+        format.html { redirect_to recipients_path, notice: 'Recipient was successfully created.' }
+        format.json { redirect_to recipients_path }
       else
         format.html { render :new }
         format.json { render json: @recipient.errors, status: :unprocessable_entity }
@@ -43,8 +42,8 @@ class RecipientsController < ApplicationController
   def update
     respond_to do |format|
       if @recipient.update(recipient_params)
-        format.html { redirect_to @recipient, notice: 'Recipient was successfully updated.' }
-        format.json { render :show, status: :ok, location: @recipient }
+        format.html { redirect_to recipients_path, notice: 'Recipient was successfully updated.' }
+        format.json { redirect_to recipients_path }
       else
         format.html { render :edit }
         format.json { render json: @recipient.errors, status: :unprocessable_entity }
@@ -57,7 +56,7 @@ class RecipientsController < ApplicationController
   def destroy
     @recipient.destroy
     respond_to do |format|
-      format.html { redirect_to recipients_url, notice: 'Recipient was successfully destroyed.' }
+      format.html { redirect_to recipients_path, notice: 'Recipient was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -71,6 +70,6 @@ class RecipientsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def recipient_params
-    params.require(:recipient).permit(:email, :user_id)
+    params.require(:recipient).permit(:email,project_ids: [])
   end
 end
