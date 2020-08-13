@@ -1,14 +1,14 @@
-/*
-*= require bootstrap
-*= require_tree 
-*= require_self
-*= require font-awesome
 
-*/
-@import "bootstrap";
- 
+/*
+ *= require_tree .
+ *= require_self
+ *= require font-awesome
+*= require chosen
+
+ */
+ @import "bootstrap/dist/css/bootstrap";
+
 .boxy{
-    border: 2px solid black;
     padding: 25px;
     background-color:lightblue;
     color: black;
@@ -23,7 +23,6 @@
     min-height: 50px; 
     font-size: 30px;
     margin-bottom: 20px;
-    border: 1px solid transparent;
   }
 
 .pad{
@@ -95,3 +94,164 @@ padding-right: 16em;
   text-align: justify;
   text-shadow: 2rem;
 }
+// #mySidenav a {
+//   position: absolute;
+//   right: -118px;
+//   transition: 0.5s;
+//   padding: 15px;
+//   width: 150px;
+//   text-decoration: none;
+//   font-size: 20px;
+//   color: white;
+//   border-radius: 0 5px 5px 0;
+// }
+
+// #mySidenav a:hover {
+//   right: 0.5px;
+// }
+
+// #about {
+//   top: 140px;
+//   background-color: #0b66b1;
+// }
+
+// #blog {
+//   top: 200px;
+//   background-color: #0b66b1;
+// }
+
+// #projects {
+//   top: 260px;
+//   background-color: #0b66b1;
+// }
+
+// #contact {
+//   top: 320px;
+//   background-color: rgb(44, 19, 185)
+// }
+// #send{
+//   top: 380px;
+//   background-color: #0b66b1
+// }
+
+
+.mybg{
+  padding: 25px;
+  background-color:rgb(95, 172, 197);
+  color: black;
+  background: url( asset-path('bg1.jpeg')) ;
+  height: 300%;
+  background-repeat: no-repeat; 
+  background-size: cover;
+ 
+}
+.relative {
+  position: absolute;
+  top: 16em;
+}
+
+.rel {
+  position: relative;
+  top: 46px;
+  left: 41rem;
+  }
+  .color{
+    color: rgb(5, 24, 109);
+  }
+  .mar{
+    margin-left: 50px;
+  }
+  .mart
+  {
+    margin-top: 30px;
+  }
+  .ryt{
+    margin-right: 10px;
+  }
+  .repbg{
+    padding: 25px;
+  background-color:lightblue;
+  color: black;
+  background: url( asset-path('repbg.jpeg')) ;
+  height: 300%;
+  background-repeat: no-repeat; 
+  background-size: cover;
+  }
+  .cent{
+    top: 10em;
+    position: relative;
+    left: 33em;
+  }
+  .space{
+    position: relative;
+    left: 14em;
+  }
+
+
+//navbar css
+
+.sidenav {
+  
+  height: 100%;
+  width: 180px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color:rgb(14, 2, 48);
+  overflow-x: hidden;
+  padding-top: 80px;
+}
+
+.sidenav a {
+  padding: 6px 6px 6px 32px;
+  text-shadow: darken($color:white, $amount: 5);
+  text-decoration: none;
+  font-size: 25px;
+  color: white;
+  display: block;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.main {
+  margin-left: 180px; /* Same as the width of the sidenav */
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+.navbar-collapse {
+  position: absolute;
+  top: 54px;
+  left: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 15px;
+  width: 100%;
+  transition: all 0.4s ease;
+  display: block;
+}
+.navbar-collapse.collapsing {
+  height: auto !important;
+  margin-left: 50%;
+  left: 50%;
+  transition: all 0.2s ease;
+}
+.navbar-collapse.show {
+  left: 0;
+}
+.indent{
+  text-indent: 25px;
+
+}
+.projindent{
+  text-indent: 60px;
+}
+.float{
+  float: right;
+}
+
