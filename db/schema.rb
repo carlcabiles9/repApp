@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_14_034708) do
+ActiveRecord::Schema.define(version: 2020_08_05_072429) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,15 @@ ActiveRecord::Schema.define(version: 2020_07_14_034708) do
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
+  create_table "project_recipients", force: :cascade do |t|
+    t.bigint "recipient_id", null: false
+    t.bigint "project_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_project_recipients_on_project_id"
+    t.index ["recipient_id"], name: "index_project_recipients_on_recipient_id"
+  end
+
   create_table "project_users", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "project_id", null: false
@@ -66,22 +75,23 @@ ActiveRecord::Schema.define(version: 2020_07_14_034708) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "recipient_id"
+    t.index ["recipient_id"], name: "index_projects_on_recipient_id"
     t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
   create_table "recipients", force: :cascade do |t|
     t.string "email"
-    t.bigint "user_id", null: false
+    t.bigint "project_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_recipients_on_user_id"
+    t.index ["project_id"], name: "index_recipients_on_project_id"
   end
 
   create_table "reports", force: :cascade do |t|
-    t.bigint "user_id", null: false
     t.bigint "project_id", null: false
+    t.bigint "user_id", null: false
     t.text "content"
-    t.string "rep_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["project_id"], name: "index_reports_on_project_id"
@@ -146,10 +156,13 @@ ActiveRecord::Schema.define(version: 2020_07_14_034708) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "project_recipients", "projects"
+  add_foreign_key "project_recipients", "recipients"
   add_foreign_key "project_users", "projects"
   add_foreign_key "project_users", "users"
+  add_foreign_key "projects", "recipients"
   add_foreign_key "projects", "users"
-  add_foreign_key "recipients", "users"
+  add_foreign_key "recipients", "projects"
   add_foreign_key "reports", "projects"
   add_foreign_key "reports", "users"
   add_foreign_key "user_roles", "roles"
