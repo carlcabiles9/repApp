@@ -9,18 +9,21 @@
         - Project.all.each do |p|
             br 
             h6 For Project: 
-            h6.fa.fa-file.fa-3x  =p.name
+            h6.fa.fa-book.fa-3x  =p.name
+            br     
             br
             -Report.all.where(project_id: p.id, rep_type: "daily", created_at: Date.today.beginning_of_day..Date.today.end_of_day).each do |report|
-                table
+                table.table
                     thead
                         tr
+                            th.fa.fa-user 
                             th Report Type
                             th Content
                             th Created at
                             th colspan = 3            
                     tbody
                         tr
+                            td = User.find(report.user_id).name.humanize
                             td = report.rep_type.humanize + " Report"
                             td = report.content
                             td  = I18n.l(report.created_at, format: "%a %m/%d/%y").to_s

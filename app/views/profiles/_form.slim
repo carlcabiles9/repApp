@@ -11,7 +11,7 @@
       .form-row
         .form-inline
           h6 Creating Profile For:
-          = text_field_tag 'user_id',nil,value: current_user.name.humanize, class:'form-control col-md-8'
+          = text_field_tag 'user_id',nil,value: current_user.name.humanize, class:'form-control col-md-8', :disabled => true 
       br
       .form-row
         .col-4

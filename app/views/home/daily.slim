@@ -1,35 +1,26 @@
-.boxy
-    .row
-        .col
-            .container          
-            -if Report.all.where(created_at: Date.today).nil?
-                h6.fa.fa-close.fa-3x No Created Reports For Today 
-                br
-                =link_to "Create Report Now", new_report_path, class: "btn btn-success"
-            -else
-                h4  DAILY REPORT FOR DAY:
-                - Project.all.each do |p|
-                    br 
-                    h6 For Project: 
-                    h6.fa.fa-file.fa-3x  =p.name
-                    br
-                    -Report.all.where(user_id: current_user,project_id: p.id, rep_type: "daily", created_at: Date.today.beginning_of_day..Date.today.end_of_day).each do |report|
-                        table
-                            thead
-                                tr
-                                    th Report Type
-                                    th Content
-                                    th Created at
-                                    th colspan = 3            
-                            tbody
-                                tr
-                                    td = report.rep_type.humanize + " Report"
-                                    td = report.content
-                                    td  = I18n.l(report.created_at, format: "%a %m/%d/%y").to_s
-        .col
-            .container
-                =render template: "recipients/index", locals: { recipients: @recipients}
+.repbg
+    -current_user.projects.each do |project|
+        .form-row
+            .col-6
+                h5.fa.fa-book.fa-lg =project.name
+                -if project.reports.where(user_id: current_user.id,created_at: Date.today.beginning_of_day..Date.today.end_of_day).present?
+                    -project.reports.where(user_id: current_user.id,created_at: Date.today.beginning_of_day..Date.today.end_of_day).each do |report|
+                        br
+                        h5.fa.fa-file =report.content
+                        br
+                        h5.fa.fa-clock-o =I18n.l(report.created_at, format: "%a %d/%m/%y")  
+                -else
+                    h5 No Reports Yet
+            .col-6
+                .indent
+                    .mart
+                        h5.fa.fa-paper-plane Recipients
+                        -project.recipients.each do |recipient|
+                            .table.projindent
+                                td =recipient.email
+                        -if project.recipients.blank?
+                            h5 No Recipients Yet
 
-    = link_to 'Send Daily Report', send_daily_home_index_path, method: :post, class: 'btn btn-success'    
+    = link_to 'Send Daily Report', send_daily_home_index_path, method: :post, class: 'btn btn-success',data: { confirm: 'Are you sure?' }
 
     

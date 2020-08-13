@@ -2,22 +2,26 @@
   - if project.errors.any? 
     #error_explanation
       h2 = pluralize(project.errors.count, "error") 
-      | prohibited this project from being saved:</h2>
+      | prohibited this project from being saved:
       ul
-        project.errors.full_messages.each do |message| 
+        -project.errors.full_messages.each do |message| 
           li = message 
-  .move      
-    .form-group
-    
-      h6.field.row.fa.fa-file.fa-2x 
+  br
+  .row
+    .col-6
+      .form-group
+        h6.field.row.fa.fa-file.fa-lg
           span Enter Project Name
-      = form.text_field :name , class: 'form-control col-md-6', placeholder: 'Project Name'
-    
-    .form-group
-      h6.field.row.fa.fa-user-circle.fa-2x 
-        span Select Users(s) For This Project
-      = form.select :participant_ids, options_from_collection_for_select(User.all.sort_by(&:name), :id, :name, form.object.user_id), {}, include_blank: true, multiple: true, class: "form-control col-6"
-
-    .actions
-      = form.submit
+        = form.text_field :name , class: 'form-control col-md-8', placeholder: 'Project Name'
+      .form-group
+        h6.field.row.fa.fa-user-circle.fa-lg
+          span Select Users(s) For This Project
+        = form.select :participant_ids, options_from_collection_for_select(User.all.where.not(:id=>current_user.id).sort_by(&:name), :id, :name, form.object.user_id), {}, include_blank: true, multiple: true, class: "chosen-select", :style=> 'height: 275px;' 
+    .col-6
+      .mart
+        h6.field.row.fa.fa-send.fa-2x Recipients
+        br
+        = form.select :recipient_ids, options_from_collection_for_select(Recipient.all.sort_by(&:email), :id, :email, form.object.recipient_ids), {}, include_blank: true, multiple: true, class: "chosen-select", :style=> 'height: 275px;'
+  .actions
+    = form.submit class: "btn btn-primary"
   

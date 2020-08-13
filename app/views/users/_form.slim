@@ -20,16 +20,15 @@
           br
         .form-inline
           .field.fa.fa-lock.fa-2x
-            = form.text_field :password, placeholder: 'PASSWORD', class: 'form-control-lg'
+          = form.text_field :password, placeholder: 'PASSWORD', class: 'form-control-lg', type: "password"
           br
-      .col.moveright
+      .col.move
         h6.field.row.fa.fa-file.fa-lg 
           span.Select Project(s) For This User
-        = form.select :project_ids, options_from_collection_for_select(Project.all.sort_by(&:name), :id, :name, form.object.project_ids), {}, include_blank: true, multiple: true, class: 'group' 
-   
-  .pad    
-    .actions
-      = form.submit class: "btn btn-primary"
+        = form.select :project_ids, options_from_collection_for_select(Project.all.sort_by(&:name), :id, :name, form.object.project_ids), {}, include_blank: true, multiple: true, class: 'col-md-6 chosen-select'
+    .pad.moveright    
+      .actions
+        = form.submit class: "btn btn-primary fa fa-floppy-o"
 
   
       

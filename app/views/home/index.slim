@@ -1,92 +1,43 @@
 - if can? :manage, Project, User
-  .container
-    .row
-      .col-6.border.border-dark
-        br
-        h3.fa.fa-user-circle.fa-3x =current_user.name.humanize
-        =link_to "Edit Account", edit_user_path(current_user), class: "fa fa-edit"
-        br
-        =link_to "User Profile", profiles_path, class: "fa fa-edit"
-        h6 =current_user.email
-        h8 My Projects:
-        table.table.table-striped
-          - current_user.projects.each do |project|
-            tr
-              td.fa.fa-book
-              td = project.name 
-        = link_to 'Create Projects', new_project_path, class: 'btn btn-info btn-block'
-        = link_to 'Create Users', new_user_path, class: 'btn btn-info btn-block'
-        = link_to 'Create Reports', new_report_path, class: 'btn btn-info btn-block'
-        br
-      .col-6.border.border-dark
-        .container
-            .send
-              =link_to "SEND DAILY REPORT", daily_home_index_path, class: "fa fa-send-o fa-lg"
-        .move
-          h6.fa.fa-eye.fa-2x View My Reports
-        br
-        
-          
-        =link_to 'VIEW DAILY REPORTS', show_daily_reports_path, class: "btn btn-light btn-block"
-        =link_to 'VIEW WEEKLY REPORTS', show_weekly_reports_path, class: "btn btn-light btn-block"
-        =link_to 'VIEW MONTHLY REPORTS', show_monthly_reports_path, class: "btn btn-light btn-block"
-
-    .row.border.border-dark
-      .col-6.border.border-dark
-        br
-        = render template: "projects/index", locals: { projects: @projects }
-        br
-      .col-6.border.border-dark
-        br
-        =render template: "users/index", locals: { users: @users}
-    
-
-
-
-    
+  h3=current_user.name.humanize
+  h6=current_user.email
+  br
+  p Welcome!
+  p As an Admin,
+  p You can manage:
+  .indent
+    p Projects : Create, Edit and Delete
+    p Users: Create, Edit and Delete 
+    p Reports: View every User's Reports
+    p Recipients: Create, Edit and Delete
+  
 - else
-  .container
-    .row
-      .col
-        table.table.table-striped
-          - current_user.projects.each do |project|
-            tr
-              td = project.name
-    
-    .row
-      .col-6.border.border-dark
-        br
-        h3.fa.fa-user-circle.fa-3x =current_user.name.humanize
-        =link_to "Edit Account", edit_user_path(current_user), class: "fa fa-edit"
-
-        br
-        =link_to "User Profile", profiles_path, class: "fa fa-edit"
-        h6 =current_user.email
-        h8 My Projects:
-        table.table.table-striped
-          -if current_user.projects.blank?
-            br
-            center
-              h6.fa.fa-book.fa-lg NO PROJECTS YET
-          -else
-            - current_user.projects.each do |project|
-              tr
-                td.fa.fa-book
-                td = project.name 
-        br
-      .col-6.border.border-dark
+  .row
+    .col-4
+      .mart
+        | My Projects:
         .container
-          .send
-            =link_to "SEND DAILY REPORT", daily_home_index_path, class: "fa fa-send-o fa-lg"
-        .move
-          center
-              h6.fa.fa-eye.fa-2x View My Reports
-        br
-        br
-        .btn-group-vertical.btn-block
-          =link_to 'VIEW DAILY REPORTS', show_daily_reports_path, class: "btn btn-primary btn-block"
-          =link_to 'VIEW WEEKLY REPORTS', show_weekly_reports_path, class: "btn btn-info btn-block"
-          =link_to 'VIEW MONTHLY REPORTS', show_monthly_reports_path, class: "btn btn-light btn-block"
-    .row.border.border-dark
-            
-   
+          .row
+            .col-4
+              table.table.table-striped
+                - current_user.projects.each do |project|
+                  tr
+                    td.fa.fa-book.fa-lg =link_to project.name.to_s, "home/show_report/"+project.id.to_s
+              -Project.where.not(id: current_user.projects.ids).each do |project|
+                table.table.table-stripped
+                  td.fa.fa-book.fa-lg =project.name
+                  td =button_to "Join","home/send_request/"+project.id.to_s, class:"form-control fa fa-clipboard", :style => 'color:green;'  
+    .col-8
+      .mart
+        .container  
+          =link_to 'Weekly Report', show_weekly_reports_path, :style=>'float:right; color:white;',class: "fa fa-files-o btn btn-primary col-md-4"
+          br
+          br
+          =link_to "Today's Report", daily_home_index_path,:style=>'float:right; color:white;',class: "fa fa-eye btn btn-primary  col-md-4"
+
+          = render "reports/form",
+            :report => @report 
+          
+
+      
+    

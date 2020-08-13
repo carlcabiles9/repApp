@@ -1,0 +1,23 @@
+h5.fa.fa-book.fa-2x =@project.name
+br
+-if Project.find(@project.id).reports.where(user_id: current_user.id).order(created_at: :desc).empty?
+  h6 No Reports Yet
+-else
+    .container
+      table#example.table.table-striped.table-bordered style=("width: 1000px;") 
+          thead
+            th Report Content
+            th Date Created
+            th
+          tbody
+            -Report.all.where(user_id: current_user.id, project_id: @project.id).order(created_at: :desc).each do |report|  
+              tr
+                td =report.content.truncate(25, omission:"...") 
+                td =I18n.l(report.created_at, format: "%a %m/%d/%y")
+                td
+                  =link_to '', edit_report_path(report), class: "fa fa-edit fa-lg btn btn-info", :style=>"color:white;"
+                  -if Date.today>report.created_at.to_date+7.days
+                  -else
+                  = link_to '', report, method: :delete, data: { confirm: 'Are you sure?' } ,class: 'fa fa-trash fa-lg btn btn-danger' ,:style=>"color:white;"
+
+

@@ -1,15 +1,13 @@
 doctype html
 html
-  .mart
     head
       meta content='text/html; charset=UTF-8' http-equiv='Content-Type' 
     body
-      .mart
-        h4 Content:
-        = @reports.content
-        br
-      
-      h3 From User:
-      = @user.name 
+      p Good Day!
+      p This is 
+      =@user.name.humanize
+      p I am requesting to join the Project : 
+      =@project.name
+
       p Have a Great Day!
     

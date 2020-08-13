@@ -7,32 +7,38 @@ html
     meta charset="utf-8"
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' 
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' 
-    script src="https://code.jquery.com/jquery-1.12.4.min.js"
-    script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
-    script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"
-    script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload' 
 
-    -if user_signed_in? 
-    -else 
-      = image_tag current_user.gravatar_url, :class => "gravatar" 
-
-    .navbar.navbar-light.bg-light
-      .container-fluid style="padding-left:55px; height:45px;"
-        .navbar-header
-          = link_to fa_icon("home", class: "th-large"), home_index_path, {:style=>'color: white', :class => "btn btn-secondary btn-lg"} 
-          | Reports Generator
-          ul
-            a.fa.fa-book href="/reports" Reports | 
-            a.fa.fa-user-circle-o href="/users" Users |
-            a.fa.fa-pencil href="/projects" Projects
-        a.fa.fa-sign-out href="/users/sign_out" Logout
-  div class = "boxy"
-
-    div class="container"
-      body
+    .color
+      .navbar.navbar-expand-lg.navbar
+        .container-fluid style="padding-left:55px; height:45px;"
+          a.fa.fa-home.btn.btn-light href="/home" 
+          h1 Reports Generator
+          -if current_user.has_role? :admin
+            a.fa.fa-user =current_user.name.humanize
+          -else
+          
+            a.fa.fa-user href="/profiles" =current_user.name.humanize 
+          a.fa.fa-sign-out.btn.btn-light href="/users/sign_out" Logout
+       
+  
+  div class="container"
+    p#notice = notice
+    = alert
+    -if current_user.has_role? :admin
+      body.mybg.main
+        #mySidenav.sidenav
+          br
+          br
+          a.fa.fa-book href="/projects" Projects
+          a.fa.fa-users href="/users" Users
+          a.fa.fa-file href="/reports" Reports
+          a.fa.fa-address-book href="/recipients" Recipients
         = yield 
-        .act
-          = link_to fa_icon("undo", class: "th-large"), :back, {:style=>'color: white;', :class => "btn btn-secondary btn-lg"} 
+    -else
+      body.mybg
+        =yield
+   
+
     footer  
-     
  

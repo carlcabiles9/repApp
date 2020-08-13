@@ -8,7 +8,13 @@
         - recipient.errors.full_messages.each do |message|
           li = message
   .field
-    = form.label :email
-    = form.text_field :email
+    br
+    = form.label :email, class: "fa fa-address-book fa-lg"
+    = form.text_field :email, class: "form-control col-6"
+    br
+    h6.field.row.fa.fa-book.fa-lg Select Project(s) for this recipient
+    br
+    br
+    = form.select :project_ids, options_from_collection_for_select(Project.all.sort_by(&:name), :id, :name, form.object.project_ids), {}, include_blank: false, multiple: true, class: "form-control col-md-6", :style=> 'height: 200px; font-size:26px; text-align:center;' 
   .actions
-    = form.submit
+    = form.submit class: "btn btn-primary"

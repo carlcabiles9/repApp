@@ -1,11 +1,12 @@
 p
   strong User:
   = current_user.name.humanize
-p
-  strong Report Type:
-  = @report.rep_type
+
 p
   strong Content:
   = @report.content
 p
-= link_to "GENERATE PDF ", report_path(@report, format: "pdf"), class: "btn btn-primary btn-lg"
+= link_to "GENERATE PDF ", report_path(@report, format: "pdf"), class: "btn btn-primary btn-lg",:style => 'color: white;'
+br
+p
+= link_to "Send Report ", daily_home_index_path, class: "btn btn-primary btn-lg", :style => 'color: white;'

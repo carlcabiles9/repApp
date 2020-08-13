@@ -1,13 +1,18 @@
-p#notice = notice
-h1 Recipients
-table
-  thead
-    tr
+
+.container
+  table#example.table.table-striped.table-bordered style=("width: 1000px;") 
+    thead
       th Email
-      th colspan="3"
-  tbody
-    - current_user.recipients.each do |recipient| 
-      tr
-        td = recipient.email
-        td = link_to 'Destroy', recipient, method: :delete, data: { confirm: 'Are you sure?' } 
-= link_to 'New Recipient', new_recipient_path 
+      th Recipient for: 
+      th = link_to 'Add Recipient', new_recipient_path, class: "fa fa-plus btn btn-primary", :style => 'color: white;' 
+     
+    tbody
+        -@recipients.each do |recipient| 
+          tr
+            td = recipient.email
+            td 
+              -recipient.projects.each do |e|
+                li = e.name
+            td 
+              = link_to '', edit_recipient_path(recipient),class: 'fa fa-edit fa-lg btn btn-info', :style=>'color: white;'
+              = link_to '', recipient, method: :delete, data: { confirm: 'Are you sure?' } ,class: "fa fa-trash btn btn-danger", :style=>'color:white'

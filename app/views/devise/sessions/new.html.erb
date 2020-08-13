@@ -1,8 +1,11 @@
+<div class ="cent"><i class="fa fa-users fa-3x" aria-hidden="true"></i></div>
 <div class="container">
-<div class = "pad3"><i class = "fa fa-id-badge fa-5x"></i></div>
-<div class= "pad"><h1>Sign in</h1>
+
+<div class="relative">
+
+<div class= "pad">
+
 <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: "form-signin"}) do |f| %>
-  
   <div class="input-group margin-bottom-sm"><table>
   <tr>  
     <td><span class="input-group-addon"><i class="fa fa-user fa-3x"></i></span></td>
@@ -10,7 +13,7 @@
     <td><%= f.text_field :name, autofocus: true, autocomplete: "off", class: 'form-control-lg', placeholder: 'Username' %>
     </td></div></tr>  
   <tr><div class="input-group">
-  <td><span class="input-group-addon"><i class="fa fa-key fa-3x"></i></span></td>
+  <td><span class="input-group-addon"><i class="fa fa-lock fa-3x"></i></span></td>
 
     <%= f.label :password, 'Password', class: 'sr-only' %>
     <td><%= f.password_field :password, autocomplete: "off", class: 'form-control-lg', placeholder: 'Password' %>
@@ -32,5 +35,6 @@
 <%= render "devise/shared/links" %>
 <% end %>
 </div>
+
 </div>
 </div>

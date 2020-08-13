@@ -1,46 +1,61 @@
+= form_tag reports_path, :method => :get do 
+  p
+    = text_field_tag :search, params[:search] 
+    = submit_tag "Search", :name => nil 
 -if current_user.has_role? :admin
-  = link_to 'Show All Users Reports', show_daily_reports_path
   br
-
--if Report.all.where(user_id: current_user.id).blank?
-  .row
-  h6.fa.fa-close.fa-3x No Created Reports 
-  br
-  =link_to "Create Report Now", new_report_path, class: "btn btn-success"
+  -if Report.all.empty?
+    h5 No Reports Yet
+  -else
+    -@users.each do |user|
+      -if user.has_role? :admin
+      -else
+        -if user.profile.nil?
+          h5.fa.fa-user.fa-2x=user.name.humanize
+        -else
+          -if user.profile.avatar.attached?
+            =image_tag user.profile.avatar.variant(resize_to_limit: [100, 100]) , class: "rounded-circle"
+            h4 =user.name.humanize  
+        -if user.projects.empty?
+          h5.indent No Projects Yet
+        -else
+          -user.projects.each do |project|
+            ul
+              h6.indent.fa.fa-book.fa-lg =project.name
+              br
+              h6.fa.fa-file.projindent Reports
+              -if Report.all.where(project_id: project.id, user_id: user.id).empty?
+                .projindent
+                  h6.projindent No Reports Yet 
+              -else             
+                .container.indent
+                  table.display.table.table-stripped.table-bordered id="example" style="width:100%" 
+                    .projindent
+                      thead
+                        th Report Content
+                        th Date Created
+                      tbody              
+                        -Report.all.where(project_id: project.id, user_id: user.id).each do |report|
+                          tr
+                            td =report.content.truncate(25, omission: '...')
+                            td =I18n.l(report.created_at, format: "%a %m/%d/%y").to_s
 -else
-  
-  h4 REPORTS:
-  - current_user.projects.all.each do |p|
-    br 
-    h6 For Project: 
-    h6.fa.fa-file.fa-3x =p.name
+  i.fa.fa-user.fa-2x =current_user.name.humanize
+  -current_user.projects.each do |project|
     br
-    -Report.all.where(user_id: current_user.id, project_id: p.id).each do |report|
-      table
-        thead
+    h6.fa.fa-book.fa-lg =project.name
+    table#example.display.table.table-bordered
+      thead
+        th
+        th
+        th
+      tbody
+        -Report.all.where(user_id: current_user.id).order(created_at: :desc).each do |report|
           tr
-            th Report Type
-            th Content
-            th Created at
-            th colspan = 3            
-        tbody
-          tr
-            td = report.rep_type.humanize + " Report"
-            td = report.content
-            td  = I18n.l(report.created_at, format: "%a %m/%d/%y").to_s
-            td =link_to "Edit This Report", edit_report_path(report), class: "btn btn-secondary"
-            td =link_to 'Show Data', report_path(report), class: "btn btn-info"
-            td = link_to 'Delete Report', report, method: :delete, data: { confirm: 'Are you sure?' } , class: 'btn btn-danger'
+            td =report.content.truncate(10, omission:"...") 
+            td =I18n.l(report.created_at, format: "%a %m/%d/%y").to_s
+            td =link_to 'Edit', edit_profile_path(report), class: "fa fa-edit fa-lg"
 
-  .col
-    
-  .col
-   
-
-
-
-              
-        
 
 
 

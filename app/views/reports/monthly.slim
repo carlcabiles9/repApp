@@ -4,9 +4,7 @@
         .container        
             p
             = form.label :Project
-            
             = form.select :project_id, options_from_collection_for_select(current_user.projects.sort_by(&:name), :id, :name, form.object.project_id), {}, include_blank: true, multiple: false, class: "collect-form"
-
             p
             = form.label :monthly_report
             br
