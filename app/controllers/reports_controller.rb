@@ -2,13 +2,49 @@
 
 class ReportsController < ApplicationController
   before_action :set_report, only: %i[show edit update destroy send_daily ]
+  require "prawn"
+  def download_pdf
+    @reports = Report.all
+    @projects = Project.all
+    @users = User.all.where.not(:id=>current_user.id)
+      respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = DownloadPdf.new(@reports,@projects,@users)
+        send_data pdf.render, filename: "report.pdf",
+                          type: 'application/pdf',
+                          disposition: 'inline'
+      end
+    end
+  end
 
+  def user_pdf
+    @reports = Report.all.where(created_at: Date.today.beginning_of_week..Date.today.end_of_week)
+    @projects = Project.all
+    @user = current_user
+      respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = UserPdf.new(@reports,@projects,@user)
+        send_data pdf.render, filename: "weekly.pdf",
+                          type: 'application/pdf',
+                          disposition: 'inline'
+      end
+    end
+  end
   # GET /reports
   # GET /reports.json
+
+
   def index
+    @profiles = Profile.all
     @reports = Report.all
     @users = User.all
     @projects = Project.all
+    @search = User.search do
+      fulltext params[:search]
+    end
+    @users = @search.results
   end
 
   def monthly
@@ -100,11 +136,10 @@ class ReportsController < ApplicationController
   def create
     @report = Report.new(report_params)
     @report.user_id = current_user.id
-
     respond_to do |format|
       if @report.save
-        format.html { redirect_to @report, notice: 'Report was successfully created.' }
-        format.json { render :show, status: :created, location: @report }
+        format.html { redirect_to home_index_path, notice: 'Report was successfully created.' }
+        format.json { redirect_to home_index_path}
       else
         format.html { render :new }
         format.json { render json: @report.errors, status: :unprocessable_entity }
@@ -117,8 +152,8 @@ class ReportsController < ApplicationController
   def update
     respond_to do |format|
       if @report.update(report_params)
-        format.html { redirect_to @report, notice: 'Report was successfully updated.' }
-        format.json { render :show, status: :ok, location: @report }
+        format.html { redirect_to home_index_path, notice: 'Report was successfully updated.' }
+        format.json { redirect_to home_index_path}
       else
         format.html { render :edit }
         format.json { render json: @report.errors, status: :unprocessable_entity }
@@ -131,7 +166,7 @@ class ReportsController < ApplicationController
   def destroy
     @report.destroy
     respond_to do |format|
-      format.html { redirect_to reports_url, notice: 'Report was successfully destroyed.' }
+      format.html { redirect_to home_index_path, notice: 'Report was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -145,6 +180,6 @@ class ReportsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def report_params
-    params.require(:report).permit(:content, :rep_type, :project_id)
+    params.require(:report).permit(:content, :project_id)
   end
 end

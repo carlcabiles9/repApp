@@ -28,8 +28,8 @@ class ProfilesController < ApplicationController
     @profile.user_id = current_user.id
     respond_to do |format|
       if @profile.save
-        format.html { redirect_to @profile, notice: 'Profile was successfully created.' }
-        format.json { render :show, status: :created, location: @profile }
+        format.html { redirect_to profiles_path, notice: 'Profile was successfully created.' }
+        format.json { redirect_to profiles_path}
       else
         format.html { render :new }
         format.json { render json: @profile.errors, status: :unprocessable_entity }
@@ -42,8 +42,8 @@ class ProfilesController < ApplicationController
   def update
     respond_to do |format|
       if @profile.update(profile_params)
-        format.html { redirect_to @profile, notice: 'Profile was successfully updated.' }
-        format.json { render :show, status: :ok, location: @profile }
+        format.html { redirect_to profiles_path, notice: 'Profile was successfully updated.' }
+        format.json { redirect_to profiles_path, flash[:notice] }
       else
         format.html { render :edit }
         format.json { render json: @profile.errors, status: :unprocessable_entity }
