@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  get 'projects/:id/destroy', to: 'projects#destroy_student', as: :deleteproject
+  get "reports/download_pdf" => "reports#download_pdf", :as => 'download_pdf'
+  get "reports/user_pdf" => "reports#user_pdf", :as => 'user_pdf'
+
   resources :reports do
     collection do
       get :monthly
@@ -12,6 +14,7 @@ Rails.application.routes.draw do
       get :show_daily
       post :show_daily
       post :send_daily
+
     end
   end
   resources :profiles
@@ -20,6 +23,10 @@ Rails.application.routes.draw do
       get :monthly
       get :weekly
       get :daily
+    
+      get  '/show_report/:id', :to => 'home#show_report'
+      post  '/send_request/:id', :to => 'home#send_request'
+
 
       post :send_daily
     end
@@ -33,11 +40,10 @@ Rails.application.routes.draw do
   resources :recipients
   devise_for :users
   resources :users do
-  collection do
-    
-    get 'show_report', action: :show_report, controller: 'users'
+    collection do
+
+    end
   end
-end
 
   devise_scope :user do
     authenticated :user do
